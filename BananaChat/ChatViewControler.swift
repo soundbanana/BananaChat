@@ -41,20 +41,13 @@ class ChatViewController: UIViewController {
         return button
     }()
 
-    private let fetchMessagesButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Fetch Messages", for: .normal)
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
         setupUI()
         bindViewModel()
 
-        viewModel.loadMessages()
+//        viewModel.loadMessages()
     }
 
     private func setupUI() {
@@ -70,49 +63,45 @@ class ChatViewController: UIViewController {
         stackView.addArrangedSubview(sendMessageButton)
 
         view.addSubview(stackView)
-        view.addSubview(fetchMessagesButton)
 
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: stackView.topAnchor, constant: -8.0),
 
-            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16.0),
-            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16.0),
-            stackView.bottomAnchor.constraint(equalTo: fetchMessagesButton.topAnchor, constant: -16.0),
-
-            fetchMessagesButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16.0),
-            fetchMessagesButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16.0),
-            fetchMessagesButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -16.0),
-            fetchMessagesButton.heightAnchor.constraint(equalToConstant: 50.0)
-        ])
+            stackView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 16.0),
+            stackView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -16.0),
+            stackView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -16.0)
+            ])
 
         tableView.dataSource = self
-
         sendMessageButton.addTarget(self, action: #selector(sendMessageButtonTapped), for: .touchUpInside)
-        fetchMessagesButton.addTarget(self, action: #selector(fetchMessagesButtonTapped), for: .touchUpInside)
     }
 
     private func bindViewModel() {
         viewModel.$messages
             .sink { [weak self] _ in
-            self?.tableView.reloadData()
+            self?.updateMessages()
         }
             .store(in: &cancellables)
+    }
+
+    private func updateMessages() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            self.tableView.reloadData()
+        }
     }
 
     @objc private func sendMessageButtonTapped() {
         guard let messageText = messageTextField.text else { return }
         viewModel.sendMessage(messageText)
-
-        // Clear the message text field
         messageTextField.text = ""
     }
 
-    @objc private func fetchMessagesButtonTapped() {
-        viewModel.loadMessages()
-    }
+//    @objc private func fetchMessagesButtonTapped() {
+//        viewModel.loadMessages()
+//    }
 }
 
 extension ChatViewController: UITableViewDataSource {
@@ -121,10 +110,9 @@ extension ChatViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath)
-
+        let cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
         let message = viewModel.messages[indexPath.row]
-
+        cell.textLabel?.text = message.content
         return cell
     }
 }

@@ -24,8 +24,10 @@ class MessageServiceImpl: MessageService {
     }
 
     func sendMessage(_ content: String) {
-        let message = Message(sender: "User", content: content)
+        let message = Message(sender: "User", content: content, isSentByUser: true)
+        messages.reverse()
         messages.append(message)
+        messages.reverse()
         messagesSubject.send(messages)
     }
 

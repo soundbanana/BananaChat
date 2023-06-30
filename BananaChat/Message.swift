@@ -10,4 +10,6 @@ import Foundation
 struct Message {
     let sender: String
     let content: String
+//    let timestamp: Date
+    let isSentByUser: Bool
 }

@@ -15,6 +15,7 @@
 		FF3CF6342A4D861F005489F0 /* MessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3CF6332A4D861F005489F0 /* MessageService.swift */; };
 		FF3CF6362A4D86C4005489F0 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3CF6352A4D86C4005489F0 /* ChatViewModel.swift */; };
 		FF3CF6382A4D8759005489F0 /* ChatViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3CF6372A4D8759005489F0 /* ChatViewControler.swift */; };
+		FF3CF63A2A4F2530005489F0 /* ChatBubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3CF6392A4F2530005489F0 /* ChatBubbleCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		FF3CF6332A4D861F005489F0 /* MessageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageService.swift; sourceTree = "<group>"; };
 		FF3CF6352A4D86C4005489F0 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
 		FF3CF6372A4D8759005489F0 /* ChatViewControler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewControler.swift; sourceTree = "<group>"; };
+		FF3CF6392A4F2530005489F0 /* ChatBubbleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubbleCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +71,7 @@
 				FF3CF6312A4D85FD005489F0 /* Message.swift */,
 				FF3CF6332A4D861F005489F0 /* MessageService.swift */,
 				FF3CF61F2A4D836A005489F0 /* SceneDelegate.swift */,
+				FF3CF6392A4F2530005489F0 /* ChatBubbleCell.swift */,
 			);
 			path = BananaChat;
 			sourceTree = "<group>";
@@ -143,6 +146,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF3CF63A2A4F2530005489F0 /* ChatBubbleCell.swift in Sources */,
 				FF3CF6342A4D861F005489F0 /* MessageService.swift in Sources */,
 				FF3CF6322A4D85FD005489F0 /* Message.swift in Sources */,
 				FF3CF61E2A4D836A005489F0 /* AppDelegate.swift in Sources */,

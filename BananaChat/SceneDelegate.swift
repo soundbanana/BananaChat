@@ -14,7 +14,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
-        let navigationController = UINavigationController.init(rootViewController: ViewController())
+
+        let messageService = MessageServiceImpl()
+        let chatViewModel = ChatViewModel(messageService: messageService)
+        let chatViewController = ChatViewController(viewModel: chatViewModel)
+
+        let navigationController = UINavigationController.init(rootViewController: chatViewController)
         let window = UIWindow(windowScene: scene)
         self.window = window
         window.rootViewController = navigationController

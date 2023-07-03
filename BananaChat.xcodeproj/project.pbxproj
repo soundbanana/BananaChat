@@ -9,19 +9,29 @@
 /* Begin PBXBuildFile section */
 		FF3CF61E2A4D836A005489F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3CF61D2A4D836A005489F0 /* AppDelegate.swift */; };
 		FF3CF6202A4D836A005489F0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3CF61F2A4D836A005489F0 /* SceneDelegate.swift */; };
-		FF3CF6222A4D836A005489F0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3CF6212A4D836A005489F0 /* ViewController.swift */; };
 		FF3CF6272A4D836B005489F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF3CF6262A4D836B005489F0 /* Assets.xcassets */; };
 		FF3CF62A2A4D836B005489F0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FF3CF6282A4D836B005489F0 /* LaunchScreen.storyboard */; };
+		FF3CF6322A4D85FD005489F0 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3CF6312A4D85FD005489F0 /* Message.swift */; };
+		FF3CF6342A4D861F005489F0 /* MessageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3CF6332A4D861F005489F0 /* MessageService.swift */; };
+		FF3CF6362A4D86C4005489F0 /* ChatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3CF6352A4D86C4005489F0 /* ChatViewModel.swift */; };
+		FF3CF6382A4D8759005489F0 /* ChatViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3CF6372A4D8759005489F0 /* ChatViewControler.swift */; };
+		FF3CF63A2A4F2530005489F0 /* ChatBubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3CF6392A4F2530005489F0 /* ChatBubbleCell.swift */; };
+		FF3CF63E2A52C324005489F0 /* RecievedMessageBubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3CF63D2A52C324005489F0 /* RecievedMessageBubbleCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		FF3CF61A2A4D836A005489F0 /* BananaChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BananaChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF3CF61D2A4D836A005489F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FF3CF61F2A4D836A005489F0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		FF3CF6212A4D836A005489F0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		FF3CF6262A4D836B005489F0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FF3CF6292A4D836B005489F0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FF3CF62B2A4D836B005489F0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FF3CF6312A4D85FD005489F0 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		FF3CF6332A4D861F005489F0 /* MessageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageService.swift; sourceTree = "<group>"; };
+		FF3CF6352A4D86C4005489F0 /* ChatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewModel.swift; sourceTree = "<group>"; };
+		FF3CF6372A4D8759005489F0 /* ChatViewControler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewControler.swift; sourceTree = "<group>"; };
+		FF3CF6392A4F2530005489F0 /* ChatBubbleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubbleCell.swift; sourceTree = "<group>"; };
+		FF3CF63D2A52C324005489F0 /* RecievedMessageBubbleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecievedMessageBubbleCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,11 +65,16 @@
 			isa = PBXGroup;
 			children = (
 				FF3CF61D2A4D836A005489F0 /* AppDelegate.swift */,
-				FF3CF61F2A4D836A005489F0 /* SceneDelegate.swift */,
-				FF3CF6212A4D836A005489F0 /* ViewController.swift */,
 				FF3CF6262A4D836B005489F0 /* Assets.xcassets */,
-				FF3CF6282A4D836B005489F0 /* LaunchScreen.storyboard */,
+				FF3CF6372A4D8759005489F0 /* ChatViewControler.swift */,
+				FF3CF6352A4D86C4005489F0 /* ChatViewModel.swift */,
 				FF3CF62B2A4D836B005489F0 /* Info.plist */,
+				FF3CF6282A4D836B005489F0 /* LaunchScreen.storyboard */,
+				FF3CF6312A4D85FD005489F0 /* Message.swift */,
+				FF3CF6332A4D861F005489F0 /* MessageService.swift */,
+				FF3CF61F2A4D836A005489F0 /* SceneDelegate.swift */,
+				FF3CF6392A4F2530005489F0 /* ChatBubbleCell.swift */,
+				FF3CF63D2A52C324005489F0 /* RecievedMessageBubbleCell.swift */,
 			);
 			path = BananaChat;
 			sourceTree = "<group>";
@@ -134,8 +149,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF3CF6222A4D836A005489F0 /* ViewController.swift in Sources */,
+				FF3CF63A2A4F2530005489F0 /* ChatBubbleCell.swift in Sources */,
+				FF3CF6342A4D861F005489F0 /* MessageService.swift in Sources */,
+				FF3CF63E2A52C324005489F0 /* RecievedMessageBubbleCell.swift in Sources */,
+				FF3CF6322A4D85FD005489F0 /* Message.swift in Sources */,
 				FF3CF61E2A4D836A005489F0 /* AppDelegate.swift in Sources */,
+				FF3CF6382A4D8759005489F0 /* ChatViewControler.swift in Sources */,
+				FF3CF6362A4D86C4005489F0 /* ChatViewModel.swift in Sources */,
 				FF3CF6202A4D836A005489F0 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

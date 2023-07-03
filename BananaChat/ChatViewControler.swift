@@ -18,8 +18,8 @@ class ChatViewController: UIViewController {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
-        tableView.register(SentMessageBubbleCell.self, forCellReuseIdentifier: SentMessageBubbleCell.reuseIdentifier)
-        tableView.register(RecievedMessageBubbleCell.self, forCellReuseIdentifier: RecievedMessageBubbleCell.reuseIdentifier)
+        tableView.register(SentMessageBubbleCell.self, forCellReuseIdentifier: "SentMessageBubbleCell")
+        tableView.register(RecievedMessageBubbleCell.self, forCellReuseIdentifier: "RecievedMessageBubbleCell")
         return tableView
     }()
 
@@ -97,7 +97,7 @@ class ChatViewController: UIViewController {
             tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
             tableView.bottomAnchor.constraint(equalTo: messageStackView.topAnchor, constant: -padding)
         ])
-        tableView.transform = CGAffineTransform(scaleX: 1, y: -1);
+        tableView.transform = CGAffineTransform(scaleX: 1, y: -1)
     }
 
     private func addTableView(to container: UIView) {
@@ -131,8 +131,8 @@ class ChatViewController: UIViewController {
         viewModel.$messages
             .sink { [weak self] _ in
             self?.updateMessages()
-        }
-            .store(in: &cancellables)
+            }
+        .store(in: &cancellables)
     }
 
     private func updateMessages() {
@@ -154,14 +154,17 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
         let message = viewModel.messages[indexPath.row]
         if message.content == "123" {
-            let cell = tableView.dequeueReusableCell(withIdentifier: RecievedMessageBubbleCell.reuseIdentifier, for: indexPath) as! RecievedMessageBubbleCell
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "RecievedMessageBubbleCell", for: indexPath) as? RecievedMessageBubbleCell else {
+                return UITableViewCell()
+            }
             cell.configure(with: message.content)
             return cell
         } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: SentMessageBubbleCell.reuseIdentifier, for: indexPath) as! SentMessageBubbleCell
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "SentMessageBubbleCell", for: indexPath) as? SentMessageBubbleCell else {
+                return UITableViewCell()
+            }
             cell.configure(with: message.content)
             return cell
         }

@@ -8,8 +8,6 @@
 import UIKit
 
 class SentMessageBubbleCell: UITableViewCell {
-    static let reuseIdentifier = "SentMessageBubbleCell"
-
     private let bubbleView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -64,12 +62,12 @@ class SentMessageBubbleCell: UITableViewCell {
             messageLabel.topAnchor.constraint(equalTo: bubbleView.topAnchor, constant: bubbleInsets.top),
             messageLabel.leadingAnchor.constraint(equalTo: bubbleView.leadingAnchor, constant: bubbleInsets.left),
             messageLabel.trailingAnchor.constraint(equalTo: bubbleView.trailingAnchor, constant: -bubbleInsets.right),
-            messageLabel.bottomAnchor.constraint(equalTo: bubbleView.bottomAnchor, constant: -bubbleInsets.bottom),
+            messageLabel.bottomAnchor.constraint(equalTo: bubbleView.bottomAnchor, constant: -bubbleInsets.bottom)
         ])
 
         bubbleView.widthAnchor.constraint(lessThanOrEqualToConstant: contentView.frame.width).isActive = true
 
-        bubbleView.transform = CGAffineTransform(scaleX: 1, y: -1);
+        bubbleView.transform = CGAffineTransform(scaleX: 1, y: -1)
     }
 
     func configure(with message: String) {

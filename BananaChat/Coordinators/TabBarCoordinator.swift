@@ -14,6 +14,7 @@ final class TabBarCoordinator: UITabBarController {
         super.viewDidLoad()
         self.tabBar.backgroundColor = .white
         self.tabBar.tintColor = .systemGray
+        self.tabBar.backgroundImage = UIImage()
 
         chatsCoordinator.start()
 

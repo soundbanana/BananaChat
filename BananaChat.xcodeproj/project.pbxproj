@@ -18,6 +18,12 @@
 		FF3CF6382A4D8759005489F0 /* ChatViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3CF6372A4D8759005489F0 /* ChatViewControler.swift */; };
 		FF3CF63A2A4F2530005489F0 /* ChatBubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3CF6392A4F2530005489F0 /* ChatBubbleCell.swift */; };
 		FF3CF63E2A52C324005489F0 /* RecievedMessageBubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3CF63D2A52C324005489F0 /* RecievedMessageBubbleCell.swift */; };
+		FF78CD272A52DFB7006BDE26 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF78CD262A52DFB7006BDE26 /* AppCoordinator.swift */; };
+		FF78CD292A52E030006BDE26 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF78CD282A52E030006BDE26 /* TabBarCoordinator.swift */; };
+		FF78CD2B2A52E413006BDE26 /* ChatsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF78CD2A2A52E413006BDE26 /* ChatsCoordinator.swift */; };
+		FF78CD2F2A52E46E006BDE26 /* ChatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF78CD2E2A52E46E006BDE26 /* ChatsViewModel.swift */; };
+		FF78CD312A52E47A006BDE26 /* ChatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF78CD302A52E47A006BDE26 /* ChatsViewController.swift */; };
+		FF78CD332A52E48B006BDE26 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF78CD322A52E48B006BDE26 /* Coordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +42,12 @@
 		FF3CF6372A4D8759005489F0 /* ChatViewControler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewControler.swift; sourceTree = "<group>"; };
 		FF3CF6392A4F2530005489F0 /* ChatBubbleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubbleCell.swift; sourceTree = "<group>"; };
 		FF3CF63D2A52C324005489F0 /* RecievedMessageBubbleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecievedMessageBubbleCell.swift; sourceTree = "<group>"; };
+		FF78CD262A52DFB7006BDE26 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
+		FF78CD282A52E030006BDE26 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
+		FF78CD2A2A52E413006BDE26 /* ChatsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsCoordinator.swift; sourceTree = "<group>"; };
+		FF78CD2E2A52E46E006BDE26 /* ChatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewModel.swift; sourceTree = "<group>"; };
+		FF78CD302A52E47A006BDE26 /* ChatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewController.swift; sourceTree = "<group>"; };
+		FF78CD322A52E48B006BDE26 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,10 +83,6 @@
 			isa = PBXGroup;
 			children = (
 				FF3CF61C2A4D836A005489F0 /* BananaChat */,
-				FF3CF61D2A4D836A005489F0 /* AppDelegate.swift */,
-				FF3CF61F2A4D836A005489F0 /* SceneDelegate.swift */,
-				FF3CF6262A4D836B005489F0 /* Assets.xcassets */,
-				FF3CF62B2A4D836B005489F0 /* Info.plist */,
 				FF3CF61B2A4D836A005489F0 /* Products */,
 				88508F0C8C99DB0F9DB7DC5E /* Pods */,
 				1929045325B346056B062203 /* Frameworks */,
@@ -92,10 +100,15 @@
 		FF3CF61C2A4D836A005489F0 /* BananaChat */ = {
 			isa = PBXGroup;
 			children = (
+				FF78CD2D2A52E452006BDE26 /* Coordinators */,
 				FF78CD232A52D358006BDE26 /* Models */,
 				FF78CD202A52D339006BDE26 /* Modules */,
 				FF78CD222A52D34B006BDE26 /* Services */,
 				FF78CD242A52D3F6006BDE26 /* Storyboards */,
+				FF3CF61D2A4D836A005489F0 /* AppDelegate.swift */,
+				FF3CF61F2A4D836A005489F0 /* SceneDelegate.swift */,
+				FF3CF6262A4D836B005489F0 /* Assets.xcassets */,
+				FF3CF62B2A4D836B005489F0 /* Info.plist */,
 			);
 			path = BananaChat;
 			sourceTree = "<group>";
@@ -103,7 +116,7 @@
 		FF78CD202A52D339006BDE26 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				FF78CD212A52D33F006BDE26 /* Chat */,
+				FF78CD2C2A52E419006BDE26 /* Chats */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -149,6 +162,27 @@
 				FF3CF63D2A52C324005489F0 /* RecievedMessageBubbleCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		FF78CD2C2A52E419006BDE26 /* Chats */ = {
+			isa = PBXGroup;
+			children = (
+				FF78CD212A52D33F006BDE26 /* Chat */,
+				FF78CD2A2A52E413006BDE26 /* ChatsCoordinator.swift */,
+				FF78CD2E2A52E46E006BDE26 /* ChatsViewModel.swift */,
+				FF78CD302A52E47A006BDE26 /* ChatsViewController.swift */,
+			);
+			path = Chats;
+			sourceTree = "<group>";
+		};
+		FF78CD2D2A52E452006BDE26 /* Coordinators */ = {
+			isa = PBXGroup;
+			children = (
+				FF78CD322A52E48B006BDE26 /* Coordinator.swift */,
+				FF78CD262A52DFB7006BDE26 /* AppCoordinator.swift */,
+				FF78CD282A52E030006BDE26 /* TabBarCoordinator.swift */,
+			);
+			path = Coordinators;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -266,14 +300,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FF78CD2B2A52E413006BDE26 /* ChatsCoordinator.swift in Sources */,
 				FF3CF63A2A4F2530005489F0 /* ChatBubbleCell.swift in Sources */,
 				FF3CF6342A4D861F005489F0 /* MessageService.swift in Sources */,
 				FF3CF63E2A52C324005489F0 /* RecievedMessageBubbleCell.swift in Sources */,
+				FF78CD312A52E47A006BDE26 /* ChatsViewController.swift in Sources */,
 				FF3CF6322A4D85FD005489F0 /* Message.swift in Sources */,
+				FF78CD332A52E48B006BDE26 /* Coordinator.swift in Sources */,
 				FF3CF61E2A4D836A005489F0 /* AppDelegate.swift in Sources */,
+				FF78CD2F2A52E46E006BDE26 /* ChatsViewModel.swift in Sources */,
 				FF3CF6382A4D8759005489F0 /* ChatViewControler.swift in Sources */,
 				FF3CF6362A4D86C4005489F0 /* ChatViewModel.swift in Sources */,
 				FF3CF6202A4D836A005489F0 /* SceneDelegate.swift in Sources */,
+				FF78CD292A52E030006BDE26 /* TabBarCoordinator.swift in Sources */,
+				FF78CD272A52DFB7006BDE26 /* AppCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -7,10 +7,9 @@
 
 import UIKit
 import Combine
-import MessageUI
 
 class ChatViewController: UIViewController {
-    private var viewModel: ChatViewModel!
+    private var viewModel: ChatViewModel
     private var cancellables = Set<AnyCancellable>()
 
     private let tableView: UITableView = {
@@ -50,7 +49,7 @@ class ChatViewController: UIViewController {
         return stackView
     }()
 
-    init(viewModel: ChatViewModel!) {
+    init(viewModel: ChatViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }

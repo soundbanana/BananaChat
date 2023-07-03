@@ -71,6 +71,10 @@
 			isa = PBXGroup;
 			children = (
 				FF3CF61C2A4D836A005489F0 /* BananaChat */,
+				FF3CF61D2A4D836A005489F0 /* AppDelegate.swift */,
+				FF3CF61F2A4D836A005489F0 /* SceneDelegate.swift */,
+				FF3CF6262A4D836B005489F0 /* Assets.xcassets */,
+				FF3CF62B2A4D836B005489F0 /* Info.plist */,
 				FF3CF61B2A4D836A005489F0 /* Products */,
 				88508F0C8C99DB0F9DB7DC5E /* Pods */,
 				1929045325B346056B062203 /* Frameworks */,
@@ -88,19 +92,63 @@
 		FF3CF61C2A4D836A005489F0 /* BananaChat */ = {
 			isa = PBXGroup;
 			children = (
-				FF3CF61D2A4D836A005489F0 /* AppDelegate.swift */,
-				FF3CF6262A4D836B005489F0 /* Assets.xcassets */,
+				FF78CD232A52D358006BDE26 /* Models */,
+				FF78CD202A52D339006BDE26 /* Modules */,
+				FF78CD222A52D34B006BDE26 /* Services */,
+				FF78CD242A52D3F6006BDE26 /* Storyboards */,
+			);
+			path = BananaChat;
+			sourceTree = "<group>";
+		};
+		FF78CD202A52D339006BDE26 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				FF78CD212A52D33F006BDE26 /* Chat */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		FF78CD212A52D33F006BDE26 /* Chat */ = {
+			isa = PBXGroup;
+			children = (
+				FF78CD252A52D437006BDE26 /* Cells */,
 				FF3CF6372A4D8759005489F0 /* ChatViewControler.swift */,
 				FF3CF6352A4D86C4005489F0 /* ChatViewModel.swift */,
-				FF3CF62B2A4D836B005489F0 /* Info.plist */,
-				FF3CF6282A4D836B005489F0 /* LaunchScreen.storyboard */,
-				FF3CF6312A4D85FD005489F0 /* Message.swift */,
+			);
+			path = Chat;
+			sourceTree = "<group>";
+		};
+		FF78CD222A52D34B006BDE26 /* Services */ = {
+			isa = PBXGroup;
+			children = (
 				FF3CF6332A4D861F005489F0 /* MessageService.swift */,
-				FF3CF61F2A4D836A005489F0 /* SceneDelegate.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		FF78CD232A52D358006BDE26 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FF3CF6312A4D85FD005489F0 /* Message.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		FF78CD242A52D3F6006BDE26 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				FF3CF6282A4D836B005489F0 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
+		FF78CD252A52D437006BDE26 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
 				FF3CF6392A4F2530005489F0 /* ChatBubbleCell.swift */,
 				FF3CF63D2A52C324005489F0 /* RecievedMessageBubbleCell.swift */,
 			);
-			path = BananaChat;
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

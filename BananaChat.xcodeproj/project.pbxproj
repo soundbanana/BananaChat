@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F5F0964448D12DD0E50241B9 /* Pods_BananaChat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60E6E4CA10204C5719A48415 /* Pods_BananaChat.framework */; };
 		FF3CF61E2A4D836A005489F0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3CF61D2A4D836A005489F0 /* AppDelegate.swift */; };
 		FF3CF6202A4D836A005489F0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3CF61F2A4D836A005489F0 /* SceneDelegate.swift */; };
 		FF3CF6272A4D836B005489F0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FF3CF6262A4D836B005489F0 /* Assets.xcassets */; };
@@ -20,6 +21,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4A5918A7B4FF4498671454C8 /* Pods-BananaChat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BananaChat.release.xcconfig"; path = "Target Support Files/Pods-BananaChat/Pods-BananaChat.release.xcconfig"; sourceTree = "<group>"; };
+		60E6E4CA10204C5719A48415 /* Pods_BananaChat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BananaChat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A7BCD3E6A51DA36F3160B3C7 /* Pods-BananaChat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BananaChat.debug.xcconfig"; path = "Target Support Files/Pods-BananaChat/Pods-BananaChat.debug.xcconfig"; sourceTree = "<group>"; };
 		FF3CF61A2A4D836A005489F0 /* BananaChat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BananaChat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FF3CF61D2A4D836A005489F0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FF3CF61F2A4D836A005489F0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -39,17 +43,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5F0964448D12DD0E50241B9 /* Pods_BananaChat.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1929045325B346056B062203 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				60E6E4CA10204C5719A48415 /* Pods_BananaChat.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		88508F0C8C99DB0F9DB7DC5E /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A7BCD3E6A51DA36F3160B3C7 /* Pods-BananaChat.debug.xcconfig */,
+				4A5918A7B4FF4498671454C8 /* Pods-BananaChat.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		FF3CF6112A4D836A005489F0 = {
 			isa = PBXGroup;
 			children = (
 				FF3CF61C2A4D836A005489F0 /* BananaChat */,
 				FF3CF61B2A4D836A005489F0 /* Products */,
+				88508F0C8C99DB0F9DB7DC5E /* Pods */,
+				1929045325B346056B062203 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -86,9 +110,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = FF3CF62E2A4D836B005489F0 /* Build configuration list for PBXNativeTarget "BananaChat" */;
 			buildPhases = (
+				9DCFA983DFABBF7683D69AC6 /* [CP] Check Pods Manifest.lock */,
 				FF3CF6162A4D836A005489F0 /* Sources */,
 				FF3CF6172A4D836A005489F0 /* Frameworks */,
 				FF3CF6182A4D836A005489F0 /* Resources */,
+				FF78CD1F2A52CDD6006BDE26 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -143,6 +169,49 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		9DCFA983DFABBF7683D69AC6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BananaChat-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		FF78CD1F2A52CDD6006BDE26 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 12;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		FF3CF6162A4D836A005489F0 /* Sources */ = {
@@ -290,6 +359,7 @@
 		};
 		FF3CF62F2A4D836B005489F0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A7BCD3E6A51DA36F3160B3C7 /* Pods-BananaChat.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -320,6 +390,7 @@
 		};
 		FF3CF6302A4D836B005489F0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4A5918A7B4FF4498671454C8 /* Pods-BananaChat.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

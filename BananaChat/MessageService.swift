@@ -8,7 +8,6 @@
 import Foundation
 import Combine
 
-
 protocol MessageService {
     func sendMessage(_ message: String)
     func fetchMessages() -> [Message]

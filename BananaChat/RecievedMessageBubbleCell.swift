@@ -1,20 +1,20 @@
 //
-//  ChatBubbleCell.swift
+//  RecievedMessageBubbleCell.swift
 //  BananaChat
 //
-//  Created by Daniil Chemaev on 30.06.2023.
+//  Created by Daniil Chemaev on 03.07.2023.
 //
 
 import UIKit
 
-class SentMessageBubbleCell: UITableViewCell {
-    static let reuseIdentifier = "SentMessageBubbleCell"
+class RecievedMessageBubbleCell: UITableViewCell {
+    static let reuseIdentifier = "RecievedMessageBubbleCell"
 
     private let bubbleView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 16
-        view.backgroundColor = .systemBlue
+        view.backgroundColor = .systemGreen
         return view
     }()
 
@@ -59,7 +59,7 @@ class SentMessageBubbleCell: UITableViewCell {
 
             bubbleView.topAnchor.constraint(equalTo: messageStackView.topAnchor),
             bubbleView.bottomAnchor.constraint(equalTo: messageStackView.bottomAnchor, constant: -1),
-            bubbleView.rightAnchor.constraint(equalTo: messageStackView.rightAnchor, constant: -16),
+            bubbleView.leftAnchor.constraint(equalTo: messageStackView.leftAnchor, constant: 16),
 
             messageLabel.topAnchor.constraint(equalTo: bubbleView.topAnchor, constant: bubbleInsets.top),
             messageLabel.leadingAnchor.constraint(equalTo: bubbleView.leadingAnchor, constant: bubbleInsets.left),

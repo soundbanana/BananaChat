@@ -7,17 +7,11 @@
 
 import UIKit
 
-final class ChatsCoordinator: Coordinator {
-    let navigationController: UINavigationController
-
-    init(_ navigationController: UINavigationController) {
-        self.navigationController = navigationController
-    }
-
-    func start() {
+final class ChatsCoordinator {
+    func start() -> UIViewController {
         let viewModel = ChatsViewModel()
         let viewController = ChatsViewController(viewModel: viewModel)
-        viewController.tabBarItem = UITabBarItem(title: "Chats", image: UIImage(systemName: "message"), tag: 0)
-        navigationController.viewControllers = [viewController]
+        let navigationController = UINavigationController(rootViewController: viewController)
+        return navigationController
     }
 }

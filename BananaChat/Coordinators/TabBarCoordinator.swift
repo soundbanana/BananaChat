@@ -1,23 +1,23 @@
+////
+////  TabBarCoordinator.swift
+////  BananaChat
+////
+////  Created by Daniil Chemaev on 03.07.2023.
+////
 //
-//  TabBarCoordinator.swift
-//  BananaChat
+//import UIKit
 //
-//  Created by Daniil Chemaev on 03.07.2023.
+//final class MainCoordinator: UITabBarController {
+//    let chatsCoordinator = ChatsCoordinator()
 //
-
-import UIKit
-
-final class TabBarCoordinator: UITabBarController {
-    let chatsCoordinator = ChatsCoordinator(UINavigationController())
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.tabBar.backgroundColor = .white
-        self.tabBar.tintColor = .systemGray
-        self.tabBar.backgroundImage = UIImage()
-
-        chatsCoordinator.start()
-
-        viewControllers = [chatsCoordinator.navigationController]
-    }
-}
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//        self.tabBar.backgroundColor = .white
+//        self.tabBar.tintColor = .systemGray
+//        self.tabBar.backgroundImage = UIImage()
+//
+//        chatsCoordinator.start()
+//
+//        viewControllers = [chatsCoordinator.navigationController]
+//    }
+//}

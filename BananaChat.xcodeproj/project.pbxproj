@@ -24,6 +24,7 @@
 		FF78CD2F2A52E46E006BDE26 /* ChatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF78CD2E2A52E46E006BDE26 /* ChatsViewModel.swift */; };
 		FF78CD312A52E47A006BDE26 /* ChatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF78CD302A52E47A006BDE26 /* ChatsViewController.swift */; };
 		FF78CD332A52E48B006BDE26 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF78CD322A52E48B006BDE26 /* Coordinator.swift */; };
+		FF78CD362A5308AE006BDE26 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF78CD352A5308AE006BDE26 /* ChatCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		FF78CD2E2A52E46E006BDE26 /* ChatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewModel.swift; sourceTree = "<group>"; };
 		FF78CD302A52E47A006BDE26 /* ChatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewController.swift; sourceTree = "<group>"; };
 		FF78CD322A52E48B006BDE26 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
+		FF78CD352A5308AE006BDE26 /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +169,7 @@
 		FF78CD2C2A52E419006BDE26 /* Chats */ = {
 			isa = PBXGroup;
 			children = (
+				FF78CD342A53089F006BDE26 /* Cells */,
 				FF78CD212A52D33F006BDE26 /* Chat */,
 				FF78CD2A2A52E413006BDE26 /* ChatsCoordinator.swift */,
 				FF78CD2E2A52E46E006BDE26 /* ChatsViewModel.swift */,
@@ -183,6 +186,14 @@
 				FF78CD282A52E030006BDE26 /* TabBarCoordinator.swift */,
 			);
 			path = Coordinators;
+			sourceTree = "<group>";
+		};
+		FF78CD342A53089F006BDE26 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				FF78CD352A5308AE006BDE26 /* ChatCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -308,6 +319,7 @@
 				FF3CF6322A4D85FD005489F0 /* Message.swift in Sources */,
 				FF78CD332A52E48B006BDE26 /* Coordinator.swift in Sources */,
 				FF3CF61E2A4D836A005489F0 /* AppDelegate.swift in Sources */,
+				FF78CD362A5308AE006BDE26 /* ChatCell.swift in Sources */,
 				FF78CD2F2A52E46E006BDE26 /* ChatsViewModel.swift in Sources */,
 				FF3CF6382A4D8759005489F0 /* ChatViewControler.swift in Sources */,
 				FF3CF6362A4D86C4005489F0 /* ChatViewModel.swift in Sources */,

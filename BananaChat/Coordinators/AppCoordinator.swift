@@ -19,7 +19,7 @@ class AppCoordinator {
     }
 
     func showMainFlow() {
-        window.rootViewController = TabBarCoordinator()
+        window.rootViewController = ChatsCoordinator().start()
         window.makeKeyAndVisible()
     }
 }

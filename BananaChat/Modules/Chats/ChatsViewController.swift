@@ -15,7 +15,8 @@ class ChatsViewController: UIViewController {
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.separatorStyle = .none
+//        tableView.separatorStyle = .none
+        tableView.register(ChatCell.self, forCellReuseIdentifier: "ChatCell")
         return tableView
     }()
 
@@ -35,6 +36,8 @@ class ChatsViewController: UIViewController {
 
     private func setupUI() {
         view.backgroundColor = .white
+        navigationItem.title = "Chats"
+        navigationController?.navigationBar.prefersLargeTitles = true
         setupTableView()
     }
 
@@ -43,13 +46,11 @@ class ChatsViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
 
-        let padding = 16.0
-
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
         ])
     }
 }
@@ -60,9 +61,13 @@ extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
-        let message = "\(indexPath.row)"
-        cell.textLabel?.text = message
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath) as? ChatCell else {
+            return UITableViewCell()
+        }
         return cell
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        90
     }
 }

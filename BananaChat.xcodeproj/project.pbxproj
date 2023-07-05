@@ -19,12 +19,13 @@
 		FF3CF63A2A4F2530005489F0 /* ChatBubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3CF6392A4F2530005489F0 /* ChatBubbleCell.swift */; };
 		FF3CF63E2A52C324005489F0 /* RecievedMessageBubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF3CF63D2A52C324005489F0 /* RecievedMessageBubbleCell.swift */; };
 		FF78CD272A52DFB7006BDE26 /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF78CD262A52DFB7006BDE26 /* AppCoordinator.swift */; };
-		FF78CD292A52E030006BDE26 /* TabBarCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF78CD282A52E030006BDE26 /* TabBarCoordinator.swift */; };
 		FF78CD2B2A52E413006BDE26 /* ChatsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF78CD2A2A52E413006BDE26 /* ChatsCoordinator.swift */; };
 		FF78CD2F2A52E46E006BDE26 /* ChatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF78CD2E2A52E46E006BDE26 /* ChatsViewModel.swift */; };
 		FF78CD312A52E47A006BDE26 /* ChatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF78CD302A52E47A006BDE26 /* ChatsViewController.swift */; };
 		FF78CD332A52E48B006BDE26 /* Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF78CD322A52E48B006BDE26 /* Coordinator.swift */; };
 		FF78CD362A5308AE006BDE26 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF78CD352A5308AE006BDE26 /* ChatCell.swift */; };
+		FF78CD382A541CEC006BDE26 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF78CD372A541CEC006BDE26 /* Chat.swift */; };
+		FF78CD3A2A542044006BDE26 /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF78CD392A542044006BDE26 /* ChatService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,12 +45,13 @@
 		FF3CF6392A4F2530005489F0 /* ChatBubbleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatBubbleCell.swift; sourceTree = "<group>"; };
 		FF3CF63D2A52C324005489F0 /* RecievedMessageBubbleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecievedMessageBubbleCell.swift; sourceTree = "<group>"; };
 		FF78CD262A52DFB7006BDE26 /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
-		FF78CD282A52E030006BDE26 /* TabBarCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCoordinator.swift; sourceTree = "<group>"; };
 		FF78CD2A2A52E413006BDE26 /* ChatsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsCoordinator.swift; sourceTree = "<group>"; };
 		FF78CD2E2A52E46E006BDE26 /* ChatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewModel.swift; sourceTree = "<group>"; };
 		FF78CD302A52E47A006BDE26 /* ChatsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsViewController.swift; sourceTree = "<group>"; };
 		FF78CD322A52E48B006BDE26 /* Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinator.swift; sourceTree = "<group>"; };
 		FF78CD352A5308AE006BDE26 /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
+		FF78CD372A541CEC006BDE26 /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
+		FF78CD392A542044006BDE26 /* ChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				FF3CF6332A4D861F005489F0 /* MessageService.swift */,
+				FF78CD392A542044006BDE26 /* ChatService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -145,6 +148,7 @@
 			isa = PBXGroup;
 			children = (
 				FF3CF6312A4D85FD005489F0 /* Message.swift */,
+				FF78CD372A541CEC006BDE26 /* Chat.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -183,7 +187,6 @@
 			children = (
 				FF78CD322A52E48B006BDE26 /* Coordinator.swift */,
 				FF78CD262A52DFB7006BDE26 /* AppCoordinator.swift */,
-				FF78CD282A52E030006BDE26 /* TabBarCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -324,7 +327,8 @@
 				FF3CF6382A4D8759005489F0 /* ChatViewControler.swift in Sources */,
 				FF3CF6362A4D86C4005489F0 /* ChatViewModel.swift in Sources */,
 				FF3CF6202A4D836A005489F0 /* SceneDelegate.swift in Sources */,
-				FF78CD292A52E030006BDE26 /* TabBarCoordinator.swift in Sources */,
+				FF78CD3A2A542044006BDE26 /* ChatService.swift in Sources */,
+				FF78CD382A541CEC006BDE26 /* Chat.swift in Sources */,
 				FF78CD272A52DFB7006BDE26 /* AppCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

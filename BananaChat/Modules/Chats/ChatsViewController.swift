@@ -15,7 +15,6 @@ class ChatsViewController: UIViewController {
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
-//        tableView.separatorStyle = .none
         tableView.register(ChatCell.self, forCellReuseIdentifier: "ChatCell")
         return tableView
     }()
@@ -32,6 +31,19 @@ class ChatsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        setupBindings()
+    }
+
+    private func setupBindings() {
+        viewModel.chatsPublisher
+            .sink { [weak self] chats in
+                self?.updateTableView(with: chats)
+            }
+        .store(in: &cancellables)
+    }
+
+    private func updateTableView(with chats: [Chat]) {
+        tableView.reloadData()
     }
 
     private func setupUI() {
@@ -55,19 +67,26 @@ class ChatsViewController: UIViewController {
     }
 }
 
-extension ChatsViewController: UITableViewDataSource, UITableViewDelegate {
+extension ChatsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 40
+        return viewModel.numberOfChats
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath) as? ChatCell else {
             return UITableViewCell()
         }
+        cell.configure(for: viewModel.chats[indexPath.row])
         return cell
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         90
+    }
+}
+
+extension ChatsViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print(123)
     }
 }

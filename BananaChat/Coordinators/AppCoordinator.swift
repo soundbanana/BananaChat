@@ -15,11 +15,11 @@ class AppCoordinator {
     }
 
     func start() {
-        self.showMainFlow()
+        self.showChats()
     }
 
-    func showMainFlow() {
-        window.rootViewController = ChatsCoordinator().start()
-        window.makeKeyAndVisible()
+    func showChats() {
+        let chatsCoordinator = ChatsCoordinator(window: window)
+        chatsCoordinator.start()
     }
 }

@@ -7,11 +7,25 @@
 
 import UIKit
 
-final class ChatsCoordinator {
-    func start() -> UIViewController {
-        let viewModel = ChatsViewModel()
+final class ChatsCoordinator: Coordinator {
+    private var navigationController: UINavigationController?
+    var window: UIWindow
+
+    init(window: UIWindow) {
+        self.window = window
+    }
+
+    func start() {
+        let viewModel = ChatsViewModel(chatService: ChatService(), coordinator: self)
         let viewController = ChatsViewController(viewModel: viewModel)
-        let navigationController = UINavigationController(rootViewController: viewController)
-        return navigationController
+        navigationController = UINavigationController(rootViewController: viewController)
+        window.rootViewController = navigationController
+        window.makeKeyAndVisible()
+    }
+
+    func showChat(_ chat: Chat) {
+        let viewModel = ChatViewModel(messageService: MessageServiceImpl())
+        let viewController = ChatViewController(viewModel: viewModel)
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }

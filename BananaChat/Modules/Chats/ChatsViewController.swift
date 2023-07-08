@@ -87,6 +87,6 @@ extension ChatsViewController: UITableViewDataSource {
 
 extension ChatsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(123)
+        viewModel.didSelectChat(indexPath.row)
     }
 }

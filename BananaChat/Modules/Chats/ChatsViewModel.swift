@@ -53,7 +53,7 @@ class ChatsViewModel {
         return chats[index]
     }
 
-    func didSelectChat(_ chat: Chat) {
-        coordinator.showChat(chat)
+    func didSelectChat(_ index: Int) {
+        coordinator.showChat(chats[index])
     }
 }

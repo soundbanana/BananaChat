@@ -66,6 +66,7 @@ class ChatViewController: UIViewController {
 
     private func setupUI() {
         view.backgroundColor = .white
+        navigationItem.largeTitleDisplayMode = .never
         addChatContainerView()
         setupTableView()
         sendMessageButton.addTarget(self, action: #selector(sendMessageButtonTapped), for: .touchUpInside)

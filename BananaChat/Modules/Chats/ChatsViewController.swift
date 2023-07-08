@@ -38,8 +38,8 @@ class ChatsViewController: UIViewController {
 
     private lazy var editNameAndPhoto = UIAction(
         title: "Edit Name and Photo",
-        image: UIImage(systemName: "person.circle")) { _ in
-        print(456)
+        image: UIImage(systemName: "person.circle")) { [weak self] _ in
+            self?.viewModel.openProfile()
     }
 
     private lazy var elements: [UIAction] = [selectMessages, editNameAndPhoto]

@@ -26,6 +26,10 @@
 		FF78CD362A5308AE006BDE26 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF78CD352A5308AE006BDE26 /* ChatCell.swift */; };
 		FF78CD382A541CEC006BDE26 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF78CD372A541CEC006BDE26 /* Chat.swift */; };
 		FF78CD3A2A542044006BDE26 /* ChatService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF78CD392A542044006BDE26 /* ChatService.swift */; };
+		FFA4F1742A59CB7500D55A87 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA4F1732A59CB7500D55A87 /* ProfileViewModel.swift */; };
+		FFA4F1762A59CB7D00D55A87 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA4F1752A59CB7D00D55A87 /* ProfileViewController.swift */; };
+		FFA4F1782A59CC3B00D55A87 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA4F1772A59CC3B00D55A87 /* Person.swift */; };
+		FFA4F17A2A59CD5700D55A87 /* PersonService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA4F1792A59CD5700D55A87 /* PersonService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -52,6 +56,10 @@
 		FF78CD352A5308AE006BDE26 /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
 		FF78CD372A541CEC006BDE26 /* Chat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
 		FF78CD392A542044006BDE26 /* ChatService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatService.swift; sourceTree = "<group>"; };
+		FFA4F1732A59CB7500D55A87 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		FFA4F1752A59CB7D00D55A87 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		FFA4F1772A59CC3B00D55A87 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		FFA4F1792A59CD5700D55A87 /* PersonService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +128,7 @@
 		FF78CD202A52D339006BDE26 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				FFA4F1722A59CB6B00D55A87 /* Profile */,
 				FF78CD2C2A52E419006BDE26 /* Chats */,
 			);
 			path = Modules;
@@ -140,6 +149,7 @@
 			children = (
 				FF3CF6332A4D861F005489F0 /* MessageService.swift */,
 				FF78CD392A542044006BDE26 /* ChatService.swift */,
+				FFA4F1792A59CD5700D55A87 /* PersonService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -149,6 +159,7 @@
 			children = (
 				FF3CF6312A4D85FD005489F0 /* Message.swift */,
 				FF78CD372A541CEC006BDE26 /* Chat.swift */,
+				FFA4F1772A59CC3B00D55A87 /* Person.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -197,6 +208,15 @@
 				FF78CD352A5308AE006BDE26 /* ChatCell.swift */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		FFA4F1722A59CB6B00D55A87 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				FFA4F1732A59CB7500D55A87 /* ProfileViewModel.swift */,
+				FFA4F1752A59CB7D00D55A87 /* ProfileViewController.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -321,6 +341,7 @@
 				FF3CF63E2A52C324005489F0 /* RecievedMessageBubbleCell.swift in Sources */,
 				FF78CD312A52E47A006BDE26 /* ChatsViewController.swift in Sources */,
 				FF3CF6322A4D85FD005489F0 /* Message.swift in Sources */,
+				FFA4F1762A59CB7D00D55A87 /* ProfileViewController.swift in Sources */,
 				FF78CD332A52E48B006BDE26 /* Coordinator.swift in Sources */,
 				FF3CF61E2A4D836A005489F0 /* AppDelegate.swift in Sources */,
 				FF78CD362A5308AE006BDE26 /* ChatCell.swift in Sources */,
@@ -328,7 +349,10 @@
 				FF3CF6382A4D8759005489F0 /* ChatViewControler.swift in Sources */,
 				FF3CF6362A4D86C4005489F0 /* ChatViewModel.swift in Sources */,
 				FF3CF6202A4D836A005489F0 /* SceneDelegate.swift in Sources */,
+				FFA4F17A2A59CD5700D55A87 /* PersonService.swift in Sources */,
+				FFA4F1742A59CB7500D55A87 /* ProfileViewModel.swift in Sources */,
 				FF78CD3A2A542044006BDE26 /* ChatService.swift in Sources */,
+				FFA4F1782A59CC3B00D55A87 /* Person.swift in Sources */,
 				FF78CD382A541CEC006BDE26 /* Chat.swift in Sources */,
 				FF78CD272A52DFB7006BDE26 /* AppCoordinator.swift in Sources */,
 			);

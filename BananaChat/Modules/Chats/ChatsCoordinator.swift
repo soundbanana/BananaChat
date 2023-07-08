@@ -28,4 +28,12 @@ final class ChatsCoordinator: Coordinator {
         let viewController = ChatViewController(viewModel: viewModel)
         navigationController?.pushViewController(viewController, animated: true)
     }
+
+    func showProfile() {
+        let viewModel = ProfileViewModel(
+            coordinator: self,
+            personService: PersonService())
+        let viewController = ProfileViewController(viewModel: viewModel)
+        navigationController?.present(viewController, animated: true)
+    }
 }

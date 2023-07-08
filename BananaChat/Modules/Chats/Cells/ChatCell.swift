@@ -65,7 +65,7 @@ class ChatCell: UITableViewCell {
     func configure(for chat: Chat) {
         titleLabel.text = chat.title
         lastMessageLabel.text = chat.lastMessage
-        timestampLabel.text = chat.timestamp.description
+        timestampLabel.text = ChatService().convertToTimestamp(chat.timestamp)  // !TODO Change convertion place
     }
 
     private func setupConstraints() {

@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import Combine
 
 class ProfileViewController: UIViewController {
     private let viewModel: ProfileViewModel
+    private var cancellables = Set<AnyCancellable>()
 
     let doneButton: UIButton = {
         let button = UIButton(type: .system)
@@ -18,7 +20,7 @@ class ProfileViewController: UIViewController {
         return button
     }()
 
-    private let nicknameLabel: UILabel = {
+    private let usernameLabel: UILabel = {
         let label = UILabel()
         label.text = "@nickname"
         label.textAlignment = .center
@@ -43,7 +45,7 @@ class ProfileViewController: UIViewController {
         return button
     }()
 
-    private let nameLabel: UILabel = {
+    private let firstNameLabel: UILabel = {
         let label = UILabel()
         label.text = "Name"
         label.font = UIFont.systemFont(ofSize: 16)
@@ -51,7 +53,7 @@ class ProfileViewController: UIViewController {
         return label
     }()
 
-    private let surnameLabel: UILabel = {
+    private let lastNameLabel: UILabel = {
         let label = UILabel()
         label.text = "Surname"
         label.font = UIFont.systemFont(ofSize: 16)
@@ -71,6 +73,22 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
+        bindViewModel()
+    }
+
+    private func bindViewModel() {
+        viewModel.personDataUpdatedPublisher
+            .sink { [weak self] in
+            self?.updateView()
+            }
+        .store(in: &cancellables)
+    }
+
+    private func updateView() {
+        guard let person = viewModel.person else { return }
+        firstNameLabel.text = person.firstName
+        lastNameLabel.text = person.lastName
+        usernameLabel.text = "@\(person.username)"
     }
 
     private func setupUI() {
@@ -80,11 +98,11 @@ class ProfileViewController: UIViewController {
         doneButton.addTarget(self, action: #selector(doneButtonTapped), for: .touchUpInside)
 
         view.addSubview(doneButton)
-        view.addSubview(nicknameLabel)
+        view.addSubview(usernameLabel)
         view.addSubview(avatarImageView)
         view.addSubview(editButton)
-        view.addSubview(nameLabel)
-        view.addSubview(surnameLabel)
+        view.addSubview(firstNameLabel)
+        view.addSubview(lastNameLabel)
 
         let padding = 16.0
 
@@ -100,14 +118,14 @@ class ProfileViewController: UIViewController {
             editButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             editButton.topAnchor.constraint(equalTo: avatarImageView.bottomAnchor),
 
-            nameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-            nameLabel.topAnchor.constraint(equalTo: editButton.bottomAnchor, constant: padding),
+            firstNameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+            firstNameLabel.topAnchor.constraint(equalTo: editButton.bottomAnchor, constant: padding),
 
-            surnameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-            surnameLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: padding),
+            lastNameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+            lastNameLabel.topAnchor.constraint(equalTo: firstNameLabel.bottomAnchor, constant: padding),
 
-            nicknameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
-            nicknameLabel.topAnchor.constraint(equalTo: surnameLabel.bottomAnchor, constant: padding)
+            usernameLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: padding),
+            usernameLabel.topAnchor.constraint(equalTo: lastNameLabel.bottomAnchor, constant: padding)
         ])
     }
 

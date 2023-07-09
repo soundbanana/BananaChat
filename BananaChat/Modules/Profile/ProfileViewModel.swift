@@ -16,6 +16,11 @@ class ProfileViewModel {
 
     private var cancellables = Set<AnyCancellable>()
 
+    private let personDataUpdatedSubject = PassthroughSubject<Void, Never>()
+    var personDataUpdatedPublisher: AnyPublisher<Void, Never> {
+        personDataUpdatedSubject.eraseToAnyPublisher()
+    }
+
     init(coordinator: ChatsCoordinator, personService: PersonService) {
         self.coordinator = coordinator
         self.personService = personService
@@ -28,6 +33,7 @@ class ProfileViewModel {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] person in
             self?.person = person
+            self?.personDataUpdatedSubject.send()
             }
         .store(in: &cancellables)
     }

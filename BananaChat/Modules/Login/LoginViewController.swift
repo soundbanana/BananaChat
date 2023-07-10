@@ -47,6 +47,8 @@ class LoginViewController: UIViewController {
         return button
     }()
 
+    private var bottomConstraint: NSLayoutConstraint?
+
     @objc func loginButtonTapped() {
         guard let email = emailTextField.text, let password = passwordTextField.text else {
             showAlert("Enter all fields")
@@ -66,10 +68,15 @@ class LoginViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    deinit {
+        unregisterForKeyboardNotifications()
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         setConstraints()
+        registerForKeyboardNotifications()
     }
 
     func showAlert(_ message: String) {
@@ -83,12 +90,12 @@ class LoginViewController: UIViewController {
         view.addSubview(titleLabel)
         NSLayoutConstraint.activate([
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
-            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 30)
+            titleLabel.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0)
         ])
 
         let stackview = UIStackView()
         stackview.axis = .vertical
-        stackview.spacing = 20
+        stackview.spacing = 16
         stackview.translatesAutoresizingMaskIntoConstraints = false
 
         stackview.addArrangedSubview(emailTextField)
@@ -99,17 +106,54 @@ class LoginViewController: UIViewController {
         view.addSubview(signUpButton)
 
         NSLayoutConstraint.activate([
-            stackview.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
-            stackview.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -50),
+            stackview.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            stackview.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -90),
             stackview.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-            stackview.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50)
+            stackview.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
+//            stackview.bottomAnchor.constraint(lessThanOrEqualTo: loginButton.topAnchor, constant: 30)
         ])
 
         NSLayoutConstraint.activate([
             loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
-            loginButton.topAnchor.constraint(equalTo: stackview.bottomAnchor, constant: 120),
-            signUpButton.topAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 20),
+            loginButton.bottomAnchor.constraint(equalTo: signUpButton.topAnchor, constant: -8),
+//            loginButton.topAnchor.constraint(: stackview.bottomAnchor, constant: 16),
             signUpButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0)
         ])
+
+        bottomConstraint = signUpButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20)
+        bottomConstraint?.isActive = true
+    }
+
+    private func registerForKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    private func unregisterForKeyboardNotifications() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else {
+            return
+        }
+
+        let keyboardHeight = keyboardFrame.height
+        let safeAreaBottomInset = view.safeAreaInsets.bottom
+
+        let constant = -(keyboardHeight - safeAreaBottomInset)
+
+        UIView.animate(withDuration: 0.3) {
+            self.bottomConstraint?.constant = constant
+            self.view.layoutIfNeeded()
+        }
+    }
+
+    @objc private func keyboardWillHide(_ notification: Notification) {
+        UIView.animate(withDuration: 0.3) {
+            self.bottomConstraint?.constant = -20
+            self.view.layoutIfNeeded()
+        }
     }
 }

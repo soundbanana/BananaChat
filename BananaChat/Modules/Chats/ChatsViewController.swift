@@ -19,6 +19,31 @@ class ChatsViewController: UIViewController {
         return tableView
     }()
 
+    private let editButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("Edit", for: .normal)
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.showsMenuAsPrimaryAction = true
+        return button
+    }()
+
+    private lazy var menu = UIMenu(children: elements)
+
+    private lazy var selectMessages = UIAction(
+        title: "Select Messages",
+        image: UIImage(systemName: "checkmark.circle")) { _ in
+        print(123)
+    }
+
+    private lazy var editNameAndPhoto = UIAction(
+        title: "Edit Name and Photo",
+        image: UIImage(systemName: "person.circle")) { [weak self] _ in
+            self?.viewModel.openProfile()
+    }
+
+    private lazy var elements: [UIAction] = [selectMessages, editNameAndPhoto]
+
     init(viewModel: ChatsViewModel) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -37,9 +62,9 @@ class ChatsViewController: UIViewController {
     private func setupBindings() {
         viewModel.chatsPublisher
             .sink { [weak self] chats in
-                self?.updateTableView(with: chats)
+            self?.updateTableView(with: chats)
             }
-        .store(in: &cancellables)
+            .store(in: &cancellables)
     }
 
     private func updateTableView(with chats: [Chat]) {
@@ -50,6 +75,8 @@ class ChatsViewController: UIViewController {
         view.backgroundColor = .white
         navigationItem.title = "Chats"
         navigationController?.navigationBar.prefersLargeTitles = true
+        editButton.menu = menu
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: editButton)
         setupTableView()
     }
 
@@ -87,6 +114,7 @@ extension ChatsViewController: UITableViewDataSource {
 
 extension ChatsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: false)
         viewModel.didSelectChat(indexPath.row)
     }
 }

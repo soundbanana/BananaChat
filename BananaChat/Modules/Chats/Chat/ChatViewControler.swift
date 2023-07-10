@@ -64,8 +64,17 @@ class ChatViewController: UIViewController {
         bindViewModel()
     }
 
+    private func bindViewModel() {
+        viewModel.$messages
+            .sink { [weak self] _ in
+            self?.updateMessages()
+            }
+        .store(in: &cancellables)
+    }
+
     private func setupUI() {
         view.backgroundColor = .white
+        navigationItem.largeTitleDisplayMode = .never
         addChatContainerView()
         setupTableView()
         sendMessageButton.addTarget(self, action: #selector(sendMessageButtonTapped), for: .touchUpInside)
@@ -124,14 +133,6 @@ class ChatViewController: UIViewController {
             sendMessageButton.heightAnchor.constraint(equalToConstant: 40),
             sendMessageButton.widthAnchor.constraint(equalToConstant: 80)
         ])
-    }
-
-    private func bindViewModel() {
-        viewModel.$messages
-            .sink { [weak self] _ in
-            self?.updateMessages()
-            }
-        .store(in: &cancellables)
     }
 
     private func updateMessages() {

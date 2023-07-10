@@ -56,4 +56,8 @@ class ChatsViewModel {
     func didSelectChat(_ index: Int) {
         coordinator.showChat(chats[index])
     }
+
+    func openProfile() {
+        coordinator.showProfile()
+    }
 }

@@ -9,10 +9,10 @@ import Foundation
 import Combine
 
 class ProfileViewModel {
-    private let personService: PersonService
+    private let userService: UserService
     private let coordinator: ChatsCoordinator
 
-    var person: Person?
+    var user: User?
 
     private var cancellables = Set<AnyCancellable>()
 
@@ -21,18 +21,18 @@ class ProfileViewModel {
         personDataUpdatedSubject.eraseToAnyPublisher()
     }
 
-    init(coordinator: ChatsCoordinator, personService: PersonService) {
+    init(coordinator: ChatsCoordinator, userService: UserService) {
         self.coordinator = coordinator
-        self.personService = personService
+        self.userService = userService
 
         fetchPerson()
     }
 
     func fetchPerson() {
-        personService.fetchPerson()
+        userService.fetchUser()
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] person in
-            self?.person = person
+            .sink { [weak self] user in
+            self?.user = user
             self?.personDataUpdatedSubject.send()
             }
         .store(in: &cancellables)

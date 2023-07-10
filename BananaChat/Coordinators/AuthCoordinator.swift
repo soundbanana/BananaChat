@@ -15,7 +15,7 @@ final class AuthCoordinator: Coordinator {
         self.window = window
     }
     func start() {
-        let viewModel = AuthViewModel(authService: AuthService(), coordinator: self)
+        let viewModel = LoginViewModel(authService: AuthService(), coordinator: self)
         let viewController = LoginViewController(viewModel: viewModel)
         navigationController = UINavigationController(rootViewController: viewController)
         window.rootViewController = navigationController

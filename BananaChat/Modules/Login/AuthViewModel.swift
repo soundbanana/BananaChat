@@ -8,7 +8,7 @@
 import Foundation
 import Combine
 
-class AuthViewModel {
+class LoginViewModel {
     private let authService: AuthService
     private let coordinator: AuthCoordinator
     private var cancellables = Set<AnyCancellable>()

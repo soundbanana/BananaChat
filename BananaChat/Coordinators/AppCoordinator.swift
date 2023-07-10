@@ -15,7 +15,12 @@ class AppCoordinator {
     }
 
     func start() {
-        self.showChats()
+        self.showAuth()
+    }
+
+    func showAuth() {
+        let authCoordinator = AuthCoordinator(window: window)
+        authCoordinator.start()
     }
 
     func showChats() {

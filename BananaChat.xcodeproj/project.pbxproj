@@ -30,6 +30,10 @@
 		FFA4F1762A59CB7D00D55A87 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA4F1752A59CB7D00D55A87 /* ProfileViewController.swift */; };
 		FFA4F1782A59CC3B00D55A87 /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA4F1772A59CC3B00D55A87 /* Person.swift */; };
 		FFA4F17A2A59CD5700D55A87 /* PersonService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFA4F1792A59CD5700D55A87 /* PersonService.swift */; };
+		FFB02B202A5C1C250019C488 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB02B1F2A5C1C250019C488 /* AuthCoordinator.swift */; };
+		FFD236612A5BDEE600783A10 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD236602A5BDEE600783A10 /* AuthViewController.swift */; };
+		FFD236642A5BDEF900783A10 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD236632A5BDEF900783A10 /* AuthViewModel.swift */; };
+		FFD236662A5BDF0300783A10 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD236652A5BDF0300783A10 /* AuthService.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -60,6 +64,10 @@
 		FFA4F1752A59CB7D00D55A87 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		FFA4F1772A59CC3B00D55A87 /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		FFA4F1792A59CD5700D55A87 /* PersonService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonService.swift; sourceTree = "<group>"; };
+		FFB02B1F2A5C1C250019C488 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
+		FFD236602A5BDEE600783A10 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
+		FFD236632A5BDEF900783A10 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		FFD236652A5BDF0300783A10 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -128,6 +136,7 @@
 		FF78CD202A52D339006BDE26 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				FFD236622A5BDEEC00783A10 /* Login */,
 				FFA4F1722A59CB6B00D55A87 /* Profile */,
 				FF78CD2C2A52E419006BDE26 /* Chats */,
 			);
@@ -150,6 +159,7 @@
 				FF3CF6332A4D861F005489F0 /* MessageService.swift */,
 				FF78CD392A542044006BDE26 /* ChatService.swift */,
 				FFA4F1792A59CD5700D55A87 /* PersonService.swift */,
+				FFD236652A5BDF0300783A10 /* AuthService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -198,6 +208,7 @@
 			children = (
 				FF78CD322A52E48B006BDE26 /* Coordinator.swift */,
 				FF78CD262A52DFB7006BDE26 /* AppCoordinator.swift */,
+				FFB02B1F2A5C1C250019C488 /* AuthCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -217,6 +228,15 @@
 				FFA4F1752A59CB7D00D55A87 /* ProfileViewController.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		FFD236622A5BDEEC00783A10 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				FFD236602A5BDEE600783A10 /* AuthViewController.swift */,
+				FFD236632A5BDEF900783A10 /* AuthViewModel.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -335,7 +355,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FFD236612A5BDEE600783A10 /* AuthViewController.swift in Sources */,
 				FF78CD2B2A52E413006BDE26 /* ChatsCoordinator.swift in Sources */,
+				FFD236642A5BDEF900783A10 /* AuthViewModel.swift in Sources */,
 				FF3CF63A2A4F2530005489F0 /* ChatBubbleCell.swift in Sources */,
 				FF3CF6342A4D861F005489F0 /* MessageService.swift in Sources */,
 				FF3CF63E2A52C324005489F0 /* RecievedMessageBubbleCell.swift in Sources */,
@@ -346,6 +368,7 @@
 				FF3CF61E2A4D836A005489F0 /* AppDelegate.swift in Sources */,
 				FF78CD362A5308AE006BDE26 /* ChatCell.swift in Sources */,
 				FF78CD2F2A52E46E006BDE26 /* ChatsViewModel.swift in Sources */,
+				FFD236662A5BDF0300783A10 /* AuthService.swift in Sources */,
 				FF3CF6382A4D8759005489F0 /* ChatViewControler.swift in Sources */,
 				FF3CF6362A4D86C4005489F0 /* ChatViewModel.swift in Sources */,
 				FF3CF6202A4D836A005489F0 /* SceneDelegate.swift in Sources */,
@@ -354,6 +377,7 @@
 				FF78CD3A2A542044006BDE26 /* ChatService.swift in Sources */,
 				FFA4F1782A59CC3B00D55A87 /* Person.swift in Sources */,
 				FF78CD382A541CEC006BDE26 /* Chat.swift in Sources */,
+				FFB02B202A5C1C250019C488 /* AuthCoordinator.swift in Sources */,
 				FF78CD272A52DFB7006BDE26 /* AppCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -17,7 +17,7 @@ class AuthService {
         return Future<Void, AuthError> { promise in
             DispatchQueue.global().asyncAfter(deadline: .now() + 0) {
                 if username == "admin" && password == "admin" {
-                    let user = User(id: 1, username: "@admin", firstName: "Admin", lastName: "Admin", avatar: nil)
+                    let user = User(id: 1, username: "admin", firstName: "Admin", lastName: "Admin", avatar: nil)
                     MockUser.user = user  // TODO Make an appropriate way to store user credentials
                     promise(.success(()))
                 } else {

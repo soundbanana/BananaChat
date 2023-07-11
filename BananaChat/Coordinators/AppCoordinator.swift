@@ -20,7 +20,10 @@ class AppCoordinator {
     }
 
     func start() {
-        self.showAuth()
+        let user = User(id: 1, username: "admin", firstName: "Admin", lastName: "Admin", avatar: nil)
+        MockUser.user = user
+        showChats(with: user)
+        //        self.showAuth()
     }
 
     func showAuth() {

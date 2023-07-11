@@ -116,4 +116,52 @@ extension ChatsViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: false)
         viewModel.didSelectChat(indexPath.row)
     }
+
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let unread = UIContextualAction(
+            style: .normal,
+            title: ""
+        ) { [weak self] _, _, completionHandler in
+            self?.handleMarkAsUnread()
+            completionHandler(true)
+        }
+
+        unread.image = UIImage(systemName: "message.badge.fill")
+        unread.backgroundColor = .systemBlue
+
+        return UISwipeActionsConfiguration(actions: [unread])
+    }
+
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let mute = UIContextualAction(
+            style: .normal,
+            title: ""
+        ) { [weak self] _, _, completionHandler in
+            self?.handleMarkAsMuted()
+            completionHandler(true)
+        }
+        mute.image = UIImage(systemName: "bell.slash.fill")
+        mute.backgroundColor = .systemIndigo
+
+        let moveToTrash = UIContextualAction(style: .normal, title: "") { [weak self] _, _, completionHandler in
+            self?.handleMoveToTrash()
+            completionHandler(true)
+        }
+        moveToTrash.image = UIImage(systemName: "trash.fill")
+        moveToTrash.backgroundColor = .systemRed
+
+        return UISwipeActionsConfiguration(actions: [moveToTrash, mute])
+    }
+
+    private func handleMarkAsUnread() {
+        print("Marked as unread")
+    }
+
+    private func handleMarkAsMuted() {
+        print("Marked as muted")
+    }
+
+    private func handleMoveToTrash() {
+        print("Moved to trash")
+    }
 }

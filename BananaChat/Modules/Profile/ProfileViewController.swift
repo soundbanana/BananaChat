@@ -85,10 +85,10 @@ class ProfileViewController: UIViewController {
     }
 
     private func updateView() {
-        guard let person = viewModel.person else { return }
-        firstNameLabel.text = person.firstName
-        lastNameLabel.text = person.lastName
-        usernameLabel.text = "@\(person.username)"
+        guard let user = viewModel.user else { return }
+        firstNameLabel.text = user.firstName
+        lastNameLabel.text = user.lastName
+        usernameLabel.text = "@\(user.username)"
     }
 
     private func setupUI() {

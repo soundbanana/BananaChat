@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import Combine
 
 class LoginViewController: UIViewController {
     private let viewModel: LoginViewModel
+    private var cancellables = Set<AnyCancellable>()
 
     lazy var titleLabel: UILabel = {
         let label = UILabel()
@@ -51,8 +53,14 @@ class LoginViewController: UIViewController {
 
     @objc func loginButtonTapped() {
         guard let email = emailTextField.text, let password = passwordTextField.text else {
-            showAlert("Enter all fields")
             return
+        }
+        if email.isEmpty || password.isEmpty {
+            showAlert("Enter all fields")
+        } else {
+            viewModel.username = email
+            viewModel.password = password
+            viewModel.login()
         }
     }
 
@@ -77,6 +85,32 @@ class LoginViewController: UIViewController {
         view.backgroundColor = .systemBackground
         setConstraints()
         registerForKeyboardNotifications()
+        bindViewModel()
+    }
+
+    private func bindViewModel() {
+        viewModel.loginSuccessPublisher
+            .sink { [weak self] result in
+            switch result {
+            case true:
+                self?.handleLoginSuccess()
+            case false:
+                self?.handleLoginFailure()
+            }
+        }
+        .store(in: &cancellables)
+    }
+
+    private func handleLoginSuccess() {
+        DispatchQueue.main.async { [weak self] in
+            self?.viewModel.loginSuccess()
+        }
+    }
+
+    private func handleLoginFailure() { // Insert AuthError
+        DispatchQueue.main.async { [weak self] in
+            self?.showAlert("Wrong login or password")
+        }
     }
 
     func showAlert(_ message: String) {
@@ -109,14 +143,12 @@ class LoginViewController: UIViewController {
             stackview.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             stackview.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant: -90),
             stackview.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 50),
-            stackview.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50),
-//            stackview.bottomAnchor.constraint(lessThanOrEqualTo: loginButton.topAnchor, constant: 30)
+            stackview.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -50)
         ])
 
         NSLayoutConstraint.activate([
             loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0),
             loginButton.bottomAnchor.constraint(equalTo: signUpButton.topAnchor, constant: -8),
-//            loginButton.topAnchor.constraint(: stackview.bottomAnchor, constant: 16),
             signUpButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0)
         ])
 

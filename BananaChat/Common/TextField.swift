@@ -8,7 +8,6 @@
 import UIKit
 
 class TextField: UITextField {
-
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -65,4 +64,3 @@ class TextField: UITextField {
         fatalError("init(coder:) has not been implemented")
     }
 }
-

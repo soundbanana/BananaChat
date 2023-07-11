@@ -16,7 +16,11 @@ class LoginViewModel {
     var username: String = ""
     var password: String = ""
 
-    @Published var loginResult: Result<User, AuthError>?
+    private let loginSuccessSubject = PassthroughSubject<Bool, Never>()
+
+    var loginSuccessPublisher: AnyPublisher<Bool, Never> {
+        loginSuccessSubject.eraseToAnyPublisher()
+    }
 
     init(authService: AuthService, coordinator: AuthCoordinator) {
         self.authService = authService
@@ -30,11 +34,16 @@ class LoginViewModel {
             case .finished:
                 break
             case .failure(let error):
-                self?.loginResult = .failure(error)
+                print(error)
+                self?.loginSuccessSubject.send(false)
             }
-        }, receiveValue: { [weak self] user in
-            self?.loginResult = .success(user)
-        })
+        }, receiveValue: { [weak self] _ in
+            self?.loginSuccessSubject.send(true)
+            })
         .store(in: &cancellables)
+    }
+
+    func loginSuccess() {
+        coordinator.finishAuth()
     }
 }

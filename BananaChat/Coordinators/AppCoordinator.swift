@@ -6,9 +6,14 @@
 //
 
 import UIKit
+import Combine
 
 class AppCoordinator {
     var window: UIWindow
+    private var authCoordinator: AuthCoordinator?
+    private var chatsCoordinator: ChatsCoordinator?
+
+    private var cancellables = Set<AnyCancellable>()
 
     init(window: UIWindow) {
         self.window = window
@@ -20,11 +25,29 @@ class AppCoordinator {
 
     func showAuth() {
         let authCoordinator = AuthCoordinator(window: window)
+        self.authCoordinator = authCoordinator
+
+        authCoordinator.didFinish
+            .sink { [weak self] user in
+                self?.handleAuthCompletion(user: user)
+            }
+            .store(in: &cancellables)
+
         authCoordinator.start()
     }
 
-    func showChats() {
+    func handleAuthCompletion(user: User?) {
+        authCoordinator = nil
+
+        if let user = user {
+            showChats(with: user)
+        }
+    }
+
+    func showChats(with user: User) {
         let chatsCoordinator = ChatsCoordinator(window: window)
+        self.chatsCoordinator = chatsCoordinator
+
         chatsCoordinator.start()
     }
 }

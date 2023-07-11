@@ -13,12 +13,13 @@ enum AuthError: Error {
 }
 
 class AuthService {
-    func login(username: String, password: String) -> AnyPublisher<User, AuthError> {
-        return Future<User, AuthError> { promise in
-            DispatchQueue.global().asyncAfter(deadline: .now() + 2) {
+    func login(username: String, password: String) -> AnyPublisher<Void, AuthError> {
+        return Future<Void, AuthError> { promise in
+            DispatchQueue.global().asyncAfter(deadline: .now() + 0) {
                 if username == "admin" && password == "admin" {
                     let user = User(id: 1, username: "@admin", firstName: "Admin", lastName: "Admin", avatar: nil)
-                    promise(.success(user))
+                    MockUser.user = user  // TODO Make an appropriate way to store user credentials
+                    promise(.success(()))
                 } else {
                     promise(.failure(.invalidCredentials))
                 }

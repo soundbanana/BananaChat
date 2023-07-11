@@ -33,13 +33,12 @@ class ChatsViewController: UIViewController {
     private lazy var selectMessages = UIAction(
         title: "Select Messages",
         image: UIImage(systemName: "checkmark.circle")) { _ in
-        print(123)
     }
 
     private lazy var editNameAndPhoto = UIAction(
         title: "Edit Name and Photo",
         image: UIImage(systemName: "person.circle")) { [weak self] _ in
-            self?.viewModel.openProfile()
+        self?.viewModel.openProfile()
     }
 
     private lazy var elements: [UIAction] = [selectMessages, editNameAndPhoto]
@@ -63,7 +62,7 @@ class ChatsViewController: UIViewController {
         viewModel.chatsPublisher
             .sink { [weak self] chats in
             self?.updateTableView(with: chats)
-            }
+        }
             .store(in: &cancellables)
     }
 

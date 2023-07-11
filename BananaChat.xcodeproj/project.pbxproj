@@ -33,8 +33,9 @@
 		FFB02B202A5C1C250019C488 /* AuthCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB02B1F2A5C1C250019C488 /* AuthCoordinator.swift */; };
 		FFB02B232A5C24D00019C488 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB02B222A5C24D00019C488 /* Button.swift */; };
 		FFB02B252A5C24E40019C488 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB02B242A5C24E40019C488 /* TextField.swift */; };
+		FFB02B2A2A5D4FCC0019C488 /* MockUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB02B292A5D4FCC0019C488 /* MockUser.swift */; };
 		FFD236612A5BDEE600783A10 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD236602A5BDEE600783A10 /* LoginViewController.swift */; };
-		FFD236642A5BDEF900783A10 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD236632A5BDEF900783A10 /* AuthViewModel.swift */; };
+		FFD236642A5BDEF900783A10 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD236632A5BDEF900783A10 /* LoginViewModel.swift */; };
 		FFD236662A5BDF0300783A10 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD236652A5BDF0300783A10 /* AuthService.swift */; };
 /* End PBXBuildFile section */
 
@@ -69,8 +70,9 @@
 		FFB02B1F2A5C1C250019C488 /* AuthCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthCoordinator.swift; sourceTree = "<group>"; };
 		FFB02B222A5C24D00019C488 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		FFB02B242A5C24E40019C488 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
+		FFB02B292A5D4FCC0019C488 /* MockUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUser.swift; sourceTree = "<group>"; };
 		FFD236602A5BDEE600783A10 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
-		FFD236632A5BDEF900783A10 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
+		FFD236632A5BDEF900783A10 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		FFD236652A5BDF0300783A10 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -124,6 +126,7 @@
 		FF3CF61C2A4D836A005489F0 /* BananaChat */ = {
 			isa = PBXGroup;
 			children = (
+				FFB02B282A5D4FC60019C488 /* Mock */,
 				FFB02B212A5C24CB0019C488 /* Common */,
 				FF78CD2D2A52E452006BDE26 /* Coordinators */,
 				FF78CD232A52D358006BDE26 /* Models */,
@@ -201,7 +204,6 @@
 			children = (
 				FF78CD342A53089F006BDE26 /* Cells */,
 				FF78CD212A52D33F006BDE26 /* Chat */,
-				FF78CD2A2A52E413006BDE26 /* ChatsCoordinator.swift */,
 				FF78CD2E2A52E46E006BDE26 /* ChatsViewModel.swift */,
 				FF78CD302A52E47A006BDE26 /* ChatsViewController.swift */,
 			);
@@ -214,6 +216,7 @@
 				FF78CD322A52E48B006BDE26 /* Coordinator.swift */,
 				FF78CD262A52DFB7006BDE26 /* AppCoordinator.swift */,
 				FFB02B1F2A5C1C250019C488 /* AuthCoordinator.swift */,
+				FF78CD2A2A52E413006BDE26 /* ChatsCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -244,11 +247,19 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
+		FFB02B282A5D4FC60019C488 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				FFB02B292A5D4FCC0019C488 /* MockUser.swift */,
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
 		FFD236622A5BDEEC00783A10 /* Login */ = {
 			isa = PBXGroup;
 			children = (
 				FFD236602A5BDEE600783A10 /* LoginViewController.swift */,
-				FFD236632A5BDEF900783A10 /* AuthViewModel.swift */,
+				FFD236632A5BDEF900783A10 /* LoginViewModel.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -371,11 +382,12 @@
 			files = (
 				FFD236612A5BDEE600783A10 /* LoginViewController.swift in Sources */,
 				FF78CD2B2A52E413006BDE26 /* ChatsCoordinator.swift in Sources */,
-				FFD236642A5BDEF900783A10 /* AuthViewModel.swift in Sources */,
+				FFD236642A5BDEF900783A10 /* LoginViewModel.swift in Sources */,
 				FF3CF63A2A4F2530005489F0 /* ChatBubbleCell.swift in Sources */,
 				FF3CF6342A4D861F005489F0 /* MessageService.swift in Sources */,
 				FF3CF63E2A52C324005489F0 /* RecievedMessageBubbleCell.swift in Sources */,
 				FF78CD312A52E47A006BDE26 /* ChatsViewController.swift in Sources */,
+				FFB02B2A2A5D4FCC0019C488 /* MockUser.swift in Sources */,
 				FFB02B252A5C24E40019C488 /* TextField.swift in Sources */,
 				FF3CF6322A4D85FD005489F0 /* Message.swift in Sources */,
 				FFA4F1762A59CB7D00D55A87 /* ProfileViewController.swift in Sources */,

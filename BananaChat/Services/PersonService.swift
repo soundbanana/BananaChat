@@ -10,11 +10,11 @@ import Combine
 
 class UserService {
     func fetchUser() -> Future<User, Never> {
-        let person = User(id: 1, username: "johnDoe", firstName: "John", lastName: "Doe", avatar: "avatar1", isOnline: true)
+        let user = MockUser.user
 
         return Future<User, Never> { promise in
             DispatchQueue.main.asyncAfter(deadline: .now() + 0) {
-                promise(.success(person))
+                promise(.success(user))
             }
         }
     }

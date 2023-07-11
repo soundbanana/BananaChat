@@ -80,7 +80,7 @@ class LoginViewController: UIViewController {
         unregisterForKeyboardNotifications()
     }
 
-    override func viewDidLoad() {
+    override func viewDidLoad() {  // Add loading indicator
         super.viewDidLoad()
         view.backgroundColor = .systemBackground
         setConstraints()

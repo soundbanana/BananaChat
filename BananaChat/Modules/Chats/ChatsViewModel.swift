@@ -19,6 +19,8 @@ class ChatsViewModel {
         chatsSubject.eraseToAnyPublisher()
     }
 
+    @Published var isSelectionModeEnabled = false
+    
     private var cancellables = Set<AnyCancellable>()
 
     init(chatService: ChatService, coordinator: ChatsCoordinator) {
@@ -55,6 +57,10 @@ class ChatsViewModel {
 
     func didSelectChat(_ index: Int) {
         coordinator.showChat(chats[index])
+    }
+
+    func toggleSelectionMode() {
+        isSelectionModeEnabled.toggle()
     }
 
     func openProfile() {

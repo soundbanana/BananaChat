@@ -15,8 +15,14 @@ class ChatService {
         let chat3 = Chat(id: "3", title: "Bob Smith", lastMessage: "What's up?", timestamp: randomDate())
         let chat4 = Chat(id: "4", title: "Emily Brown", lastMessage: "Long time no see!", timestamp: randomDate())
         let chat5 = Chat(id: "5", title: "Michael Wilsons", lastMessage: "Do you have any plans for the weekend? Do you have any plans for the weekend? Do you have any plans for the weekend?", timestamp: Date())
+        let chat6 = Chat(id: "2", title: "Alice Johnson", lastMessage: "How are you?", timestamp: randomDate())
+        let chat7 = Chat(id: "3", title: "Bob Smith", lastMessage: "What's up?", timestamp: randomDate())
+        let chat8 = Chat(id: "4", title: "Emily Brown", lastMessage: "Long time no see!", timestamp: randomDate())
+        let chat9 = Chat(id: "5", title: "Michael Wilsons", lastMessage: "Do you have any plans for the weekend? Do you have any plans for the weekend? Do you have any plans for the weekend?", timestamp: Date())
+        let chat10 = Chat(id: "5", title: "Michael Wilsons", lastMessage: "Do you have any plans for the weekend? Do you have any plans for the weekend? Do you have any plans for the weekend?", timestamp: Date())
+        let chat11 = Chat(id: "5", title: "Michael Wilsons", lastMessage: "Do you have any plans for the weekend? Do you have any plans for the weekend? Do you have any plans for the weekend?", timestamp: Date())
 
-        let chats = [chat1, chat2, chat3, chat4, chat5].sorted {
+        let chats = [chat1, chat2, chat3, chat4, chat5, chat6, chat7, chat8, chat9, chat10, chat11].sorted {
             $0.timestamp < $1.timestamp
         }
 

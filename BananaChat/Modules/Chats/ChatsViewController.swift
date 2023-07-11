@@ -23,6 +23,7 @@ class ChatsViewController: UIViewController {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("Edit", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 17)
         button.setTitleColor(.systemBlue, for: .normal)
         button.showsMenuAsPrimaryAction = true
         return button
@@ -32,7 +33,9 @@ class ChatsViewController: UIViewController {
 
     private lazy var selectMessages = UIAction(
         title: "Select Messages",
-        image: UIImage(systemName: "checkmark.circle")) { _ in
+        image: UIImage(systemName: "checkmark.circle")) { [weak self] _ in
+        self?.viewModel.toggleSelectionMode()
+        self?.showCustomTabBarButtonTapped()  // TODO
     }
 
     private lazy var editNameAndPhoto = UIAction(
@@ -40,6 +43,8 @@ class ChatsViewController: UIViewController {
         image: UIImage(systemName: "person.circle")) { [weak self] _ in
         self?.viewModel.openProfile()
     }
+
+    private var customTabBar: UIView?
 
     private lazy var elements: [UIAction] = [selectMessages, editNameAndPhoto]
 
@@ -52,16 +57,34 @@ class ChatsViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
+    deinit {
+        cancellables.forEach { $0.cancel() }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
         setupBindings()
     }
 
+    @objc private func showCustomTabBarButtonTapped() {
+        showCustomTabBar()
+    }
+
+    @objc private func hideCustomTabBarButtonTapped() {
+        hideCustomTabBar()
+    }
+
     private func setupBindings() {
         viewModel.chatsPublisher
             .sink { [weak self] chats in
             self?.updateTableView(with: chats)
+        }
+            .store(in: &cancellables)
+
+        viewModel.$isSelectionModeEnabled
+            .sink { [weak self] isEnabled in
+            self?.setupNavigationItem(with: isEnabled)
         }
             .store(in: &cancellables)
     }
@@ -74,9 +97,53 @@ class ChatsViewController: UIViewController {
         view.backgroundColor = .white
         navigationItem.title = "Chats"
         navigationController?.navigationBar.prefersLargeTitles = true
-        editButton.menu = menu
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: editButton)
         setupTableView()
+    }
+
+    private func setupNavigationItem(with isSelectionMode: Bool) {
+        if isSelectionMode {
+            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonTapped))
+            hideCustomTabBar()
+        } else {
+            editButton.menu = menu
+            navigationItem.leftBarButtonItem = UIBarButtonItem(customView: editButton)
+            hideCustomTabBar()
+        }
+    }
+
+    private func showCustomTabBar() {
+        if customTabBar == nil {
+            let tabBarHeight: CGFloat = 80
+
+            let customTabBar = UIView(frame: CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: tabBarHeight))
+            customTabBar.backgroundColor = .systemGray
+            customTabBar.autoresizingMask = [.flexibleTopMargin, .flexibleWidth] // Ensure the tab bar resizes properly
+
+            UIView.animate(withDuration: 0.3) {
+                self.view.addSubview(customTabBar)
+                self.customTabBar = customTabBar
+
+                customTabBar.frame.origin.y -= tabBarHeight
+            }
+        }
+    }
+
+    private func hideCustomTabBar() {
+        guard let customTabBar = customTabBar else {
+            return
+        }
+
+        UIView.animate(withDuration: 0.3, animations: {
+            customTabBar.frame.origin.y += customTabBar.bounds.height
+        }, completion: { _ in
+            customTabBar.removeFromSuperview()
+            self.customTabBar = nil
+        })
+    }
+
+    @objc private func doneButtonTapped() {
+        viewModel.toggleSelectionMode()
+        hideCustomTabBar() // TODO
     }
 
     private func setupTableView() {

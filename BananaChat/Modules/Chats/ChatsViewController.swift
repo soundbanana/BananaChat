@@ -30,12 +30,12 @@ class ChatsViewController: UIViewController {
     }()
 
     private lazy var menu = UIMenu(children: elements)
+    private lazy var elements: [UIAction] = [selectMessages, editNameAndPhoto]
 
     private lazy var selectMessages = UIAction(
         title: "Select Messages",
         image: UIImage(systemName: "checkmark.circle")) { [weak self] _ in
-        self?.viewModel.toggleSelectionMode()
-        self?.showCustomTabBarButtonTapped()  // TODO
+            self?.viewModel.toggleSelectionMode()
     }
 
     private lazy var editNameAndPhoto = UIAction(
@@ -44,9 +44,9 @@ class ChatsViewController: UIViewController {
         self?.viewModel.openProfile()
     }
 
-    private var customTabBar: CustomTabBarView?
+    private lazy var doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonTapped))
 
-    private lazy var elements: [UIAction] = [selectMessages, editNameAndPhoto]
+    private var customTabBar: CustomTabBarView?
 
     init(viewModel: ChatsViewModel) {
         self.viewModel = viewModel
@@ -65,14 +65,6 @@ class ChatsViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupBindings()
-    }
-
-    @objc private func showCustomTabBarButtonTapped() {
-        showCustomTabBar()
-    }
-
-    @objc private func hideCustomTabBarButtonTapped() {
-        hideCustomTabBar()
     }
 
     private func setupBindings() {
@@ -102,16 +94,23 @@ class ChatsViewController: UIViewController {
 
     private func setupNavigationItem(with isSelectionMode: Bool) {
         if isSelectionMode {
-            navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonTapped))
-            hideCustomTabBar()
+            navigationItem.leftBarButtonItem = doneButton
+            tableView.setEditing(true, animated: true)
+            showCustomTabBar()
         } else {
             editButton.menu = menu
             navigationItem.leftBarButtonItem = UIBarButtonItem(customView: editButton)
+            tableView.setEditing(false, animated: true)
             hideCustomTabBar()
         }
     }
 
     private var tableViewBottomConstraint: NSLayoutConstraint?
+
+    private func toggleSelectionMode() {
+        viewModel.toggleSelectionMode()
+        showCustomTabBar()
+    }
 
     private func showCustomTabBar() {
         if customTabBar == nil {
@@ -159,8 +158,7 @@ class ChatsViewController: UIViewController {
     }
 
     @objc private func doneButtonTapped() {
-        viewModel.toggleSelectionMode()
-        hideCustomTabBar() // TODO
+        toggleSelectionMode()
     }
 
     private func setupTableView() {
@@ -186,6 +184,7 @@ extension ChatsViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath) as? ChatCell else {
             return UITableViewCell()
         }
+//        cell.accessoryType = self.selectedCells.contains(indexPath.row) ? .checkmark : .none
         cell.configure(for: viewModel.chats[indexPath.row])
         return cell
     }
@@ -193,6 +192,16 @@ extension ChatsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         90
     }
+
+//    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) {
+//        if self.selectedCells.contains(indexPath.row) {
+//            let index = self.selectedCells.firstIndex(of: indexPath.row)
+//            self.selectedCells.remove(at: index!)
+//        } else {
+//            self.selectedCells.append(indexPath.row)
+//        }
+////        tableView.reloadData()
+//    }
 }
 
 extension ChatsViewController: UITableViewDelegate {
@@ -247,5 +256,9 @@ extension ChatsViewController: UITableViewDelegate {
 
     private func handleMoveToTrash() {
         print("Moved to trash")
+    }
+
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        .none
     }
 }

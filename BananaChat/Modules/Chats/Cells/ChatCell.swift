@@ -12,7 +12,6 @@ class ChatCell: UITableViewCell {
         let imageView = UIImageView(image: UIImage(systemName: "circle"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.tintColor = .systemBlue
-//        imageView.isHidden = true
         return imageView
     }()
 
@@ -64,11 +63,20 @@ class ChatCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupConstraints()
-//        setSelectionContraints()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    override func didTransition(to state: UITableViewCell.StateMask) {
+        super.didTransition(to: state)
+        switch state.rawValue {
+        case 1: self.setSelectionContraints()
+        case 0: self.setupConstraints()
+        default:
+            self.setupConstraints()
+        }
     }
 
     func configure(for chat: Chat) {
@@ -83,6 +91,8 @@ class ChatCell: UITableViewCell {
         contentView.addSubview(lastMessageLabel)
         contentView.addSubview(arrowImage)
         contentView.addSubview(timestampLabel)
+
+        arrowImage.isHidden = false
 
         let padding: CGFloat = 8.0
 
@@ -116,27 +126,24 @@ class ChatCell: UITableViewCell {
     }
 
     private func setSelectionContraints() {
-        contentView.addSubview(checkmarkImageView)
-        checkmarkImageView.tintColor = .systemGray
+//        contentView.addSubview(checkmarkImageView)
+//            checkmarkImageView.tintColor = .systemGray
 
-        arrowImage.isHidden = true
+//        arrowImage.alpha = 0 // Start with arrowImage hidden
 
         let padding: CGFloat = 8.0
         NSLayoutConstraint.activate([
-            profileImage.leftAnchor.constraint(equalTo: checkmarkImageView.rightAnchor, constant: padding),
-//            titleLabel.leftAnchor.constraint(equalTo: profileImage.trailingAnchor, constant: padding),
-//            lastMessageLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: padding),
-
-            checkmarkImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
-            checkmarkImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            checkmarkImageView.widthAnchor.constraint(equalToConstant: 24),
-            checkmarkImageView.heightAnchor.constraint(equalToConstant: 24),
-
-            lastMessageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-
-            timestampLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-
-
+            lastMessageLabel.trailingAnchor.constraint(equalTo: timestampLabel.trailingAnchor),
+            timestampLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding)
         ])
+
+        let animator = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut) {
+            // Update the layout
+            self.contentView.layoutIfNeeded()
+//            self.arrowImage.alpha = 1 // Show the arrowImage
+        }
+
+        // Start the animation
+        animator.startAnimation()
     }
 }

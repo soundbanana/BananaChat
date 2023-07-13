@@ -8,6 +8,14 @@
 import UIKit
 
 class ChatCell: UITableViewCell {
+    let checkmarkImageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(systemName: "circle"))
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.tintColor = .systemBlue
+//        imageView.isHidden = true
+        return imageView
+    }()
+
     let profileImage: UIImageView = {
         let imageView = UIImageView(image: UIImage(systemName: "person.crop.circle.fill"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -56,6 +64,7 @@ class ChatCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupConstraints()
+//        setSelectionContraints()
     }
 
     required init?(coder: NSCoder) {
@@ -65,7 +74,7 @@ class ChatCell: UITableViewCell {
     func configure(for chat: Chat) {
         titleLabel.text = chat.title
         lastMessageLabel.text = chat.lastMessage
-        timestampLabel.text = ChatService().convertToTimestamp(chat.timestamp)  // !TODO Change convertion place
+        timestampLabel.text = ChatService().convertToTimestamp(chat.timestamp) // !TODO Change convertion place
     }
 
     private func setupConstraints() {
@@ -104,5 +113,30 @@ class ChatCell: UITableViewCell {
 
         timestampLabel.setContentHuggingPriority(.required, for: .horizontal)
         timestampLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+    }
+
+    private func setSelectionContraints() {
+        contentView.addSubview(checkmarkImageView)
+        checkmarkImageView.tintColor = .systemGray
+
+        arrowImage.isHidden = true
+
+        let padding: CGFloat = 8.0
+        NSLayoutConstraint.activate([
+            profileImage.leftAnchor.constraint(equalTo: checkmarkImageView.rightAnchor, constant: padding),
+//            titleLabel.leftAnchor.constraint(equalTo: profileImage.trailingAnchor, constant: padding),
+//            lastMessageLabel.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: padding),
+
+            checkmarkImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding),
+            checkmarkImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            checkmarkImageView.widthAnchor.constraint(equalToConstant: 24),
+            checkmarkImageView.heightAnchor.constraint(equalToConstant: 24),
+
+            lastMessageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+
+            timestampLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+
+
+        ])
     }
 }

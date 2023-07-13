@@ -44,7 +44,7 @@ class ChatsViewController: UIViewController {
         self?.viewModel.openProfile()
     }
 
-    private var customTabBar: UIView?
+    private var customTabBar: CustomTabBarView?
 
     private lazy var elements: [UIAction] = [selectMessages, editNameAndPhoto]
 
@@ -111,20 +111,24 @@ class ChatsViewController: UIViewController {
         }
     }
 
+    private var tableViewBottomConstraint: NSLayoutConstraint?
+
     private func showCustomTabBar() {
         if customTabBar == nil {
             let tabBarHeight: CGFloat = 80
 
-            let customTabBar = UIView(frame: CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: tabBarHeight))
-            customTabBar.backgroundColor = .systemGray
+            let customTabBar = CustomTabBarView(frame: CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: tabBarHeight))
             customTabBar.autoresizingMask = [.flexibleTopMargin, .flexibleWidth] // Ensure the tab bar resizes properly
 
-            UIView.animate(withDuration: 0.3) {
+            customTabBar.setDeleteButtonEnabled(false)
+            UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
                 self.view.addSubview(customTabBar)
                 self.customTabBar = customTabBar
 
                 customTabBar.frame.origin.y -= tabBarHeight
-            }
+            }, completion: { [weak self] _ in
+                self?.updateTableViewBottomConstraint()
+            })
         }
     }
 
@@ -133,12 +137,25 @@ class ChatsViewController: UIViewController {
             return
         }
 
-        UIView.animate(withDuration: 0.3, animations: {
-            customTabBar.frame.origin.y += customTabBar.bounds.height
-        }, completion: { _ in
+        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
+            customTabBar.frame.origin.y = self.view.bounds.height
+        }, completion: { [weak self] _ in
             customTabBar.removeFromSuperview()
-            self.customTabBar = nil
+            self?.customTabBar = nil
+            self?.updateTableViewBottomConstraint()
         })
+    }
+
+    private func updateTableViewBottomConstraint() {
+        tableViewBottomConstraint?.isActive = false
+
+        if let customTabBar = customTabBar {
+            tableViewBottomConstraint = tableView.bottomAnchor.constraint(equalTo: customTabBar.topAnchor)
+        } else {
+            tableViewBottomConstraint = tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        }
+
+        tableViewBottomConstraint?.isActive = true
     }
 
     @objc private func doneButtonTapped() {

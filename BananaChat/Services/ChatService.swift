@@ -14,13 +14,13 @@ class ChatService {
         let chat2 = Chat(id: "2", title: "Alice Johnson", lastMessage: "How are you?", timestamp: randomDate())
         let chat3 = Chat(id: "3", title: "Bob Smith", lastMessage: "What's up?", timestamp: randomDate())
         let chat4 = Chat(id: "4", title: "Emily Brown", lastMessage: "Long time no see!", timestamp: randomDate())
-        let chat5 = Chat(id: "5", title: "Michael Wilsons", lastMessage: "Do you have any plans for the weekend? Do you have any plans for the weekend? Do you have any plans for the weekend?", timestamp: Date())
-        let chat6 = Chat(id: "2", title: "Alice Johnson", lastMessage: "How are you?", timestamp: randomDate())
-        let chat7 = Chat(id: "3", title: "Bob Smith", lastMessage: "What's up?", timestamp: randomDate())
-        let chat8 = Chat(id: "4", title: "Emily Brown", lastMessage: "Long time no see!", timestamp: randomDate())
-        let chat9 = Chat(id: "5", title: "Michael Wilsons", lastMessage: "Do you have any plans for the weekend? Do you have any plans for the weekend? Do you have any plans for the weekend?", timestamp: Date())
-        let chat10 = Chat(id: "5", title: "Michael Wilsons", lastMessage: "Do you have any plans for the weekend? Do you have any plans for the weekend? Do you have any plans for the weekend?", timestamp: Date())
-        let chat11 = Chat(id: "5", title: "Michael Wilsons", lastMessage: "Do you have any plans for the weekend? Do you have any plans for the weekend? Do you have any plans for the weekend?", timestamp: Date())
+        let chat5 = Chat(id: "5", title: "Michael Wilsons", lastMessage: "Do you have any plans for the weekend?", timestamp: Date())
+        let chat6 = Chat(id: "6", title: "Sarah Thompson", lastMessage: "I'm looking forward to the event!", timestamp: randomDate())
+        let chat7 = Chat(id: "7", title: "David Lee", lastMessage: "Let's grab lunch next week.", timestamp: randomDate())
+        let chat8 = Chat(id: "8", title: "Olivia Davis", lastMessage: "Have you seen the latest movie?", timestamp: randomDate())
+        let chat9 = Chat(id: "9", title: "James Anderson", lastMessage: "Can you help me with the project?", timestamp: randomDate())
+        let chat10 = Chat(id: "10", title: "Sophia Martinez", lastMessage: "Happy birthday! 🎉", timestamp: randomDate())
+        let chat11 = Chat(id: "11", title: "Daniel Wilson", lastMessage: "What time is the meeting?", timestamp: randomDate())
 
         let chats = [chat1, chat2, chat3, chat4, chat5, chat6, chat7, chat8, chat9, chat10, chat11].sorted {
             $0.timestamp < $1.timestamp

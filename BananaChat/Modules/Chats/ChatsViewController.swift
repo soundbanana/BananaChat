@@ -149,7 +149,6 @@ class ChatsViewController: UIViewController {
     private func showCustomTabBar() {
         if customTabBar == nil {
             let screenHeight = UIScreen.main.bounds.height
-            print(screenHeight)
             let customViewHeight = screenHeight * 0.08
 
             let tabBarHeight: CGFloat = customViewHeight
@@ -222,18 +221,33 @@ extension ChatsViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let unread = UIContextualAction(
-            style: .normal,
-            title: ""
-        ) { [weak self] _, _, completionHandler in
-            self?.handleMarkAsUnread()
-            completionHandler(true)
+        let chat = viewModel.chats[indexPath.row]
+
+        if chat.unreadMessagesCount == 0 {
+            let unread = UIContextualAction(
+                style: .normal,
+                title: ""
+            ) { [weak self] _, _, completionHandler in
+                self?.handleMarkAsUnread()
+                completionHandler(true)
+            }
+
+            unread.image = UIImage(systemName: "message.badge.fill")
+            unread.backgroundColor = .systemBlue
+            return UISwipeActionsConfiguration(actions: [unread])
+        } else {
+            let read = UIContextualAction(
+                style: .normal,
+                title: ""
+            ) { [weak self] _, _, completionHandler in
+                self?.handleMarkAsRead()
+                completionHandler(true)
+            }
+
+            read.image = UIImage(systemName: "checkmark.message.fill")
+            read.backgroundColor = .systemBlue
+            return UISwipeActionsConfiguration(actions: [read])
         }
-
-        unread.image = UIImage(systemName: "message.badge.fill")
-        unread.backgroundColor = .systemBlue
-
-        return UISwipeActionsConfiguration(actions: [unread])
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -256,6 +270,10 @@ extension ChatsViewController: UITableViewDelegate {
 
     private func handleMarkAsUnread() {
         print("Marked as unread")
+    }
+
+    private func handleMarkAsRead() {
+        print("Marked as read")
     }
 
     private func handleMarkAsMuted() {

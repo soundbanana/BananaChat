@@ -15,6 +15,7 @@ class ChatsViewController: UIViewController {
     private let tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.allowsMultipleSelectionDuringEditing = true
         tableView.register(ChatCell.self, forCellReuseIdentifier: "ChatCell")
         return tableView
     }()
@@ -35,7 +36,7 @@ class ChatsViewController: UIViewController {
     private lazy var selectMessages = UIAction(
         title: "Select Messages",
         image: UIImage(systemName: "checkmark.circle")) { [weak self] _ in
-            self?.viewModel.toggleSelectionMode()
+            self?.toggleSelectionMode()
     }
 
     private lazy var editNameAndPhoto = UIAction(
@@ -63,8 +64,8 @@ class ChatsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUI()
         setupBindings()
+        setupUI()
     }
 
     private func setupBindings() {
@@ -95,12 +96,10 @@ class ChatsViewController: UIViewController {
     private func setupNavigationItem(with isSelectionMode: Bool) {
         if isSelectionMode {
             navigationItem.leftBarButtonItem = doneButton
-            tableView.setEditing(true, animated: true)
             showCustomTabBar()
         } else {
             editButton.menu = menu
             navigationItem.leftBarButtonItem = UIBarButtonItem(customView: editButton)
-            tableView.setEditing(false, animated: true)
             hideCustomTabBar()
         }
     }
@@ -109,12 +108,16 @@ class ChatsViewController: UIViewController {
 
     private func toggleSelectionMode() {
         viewModel.toggleSelectionMode()
-        showCustomTabBar()
+        tableView.setEditing(!tableView.isEditing, animated: true)
     }
 
     private func showCustomTabBar() {
         if customTabBar == nil {
-            let tabBarHeight: CGFloat = 80
+            let screenHeight = UIScreen.main.bounds.height
+            print(screenHeight)
+            let customViewHeight = screenHeight * 0.08
+
+            let tabBarHeight: CGFloat = customViewHeight
 
             let customTabBar = CustomTabBarView(frame: CGRect(x: 0, y: view.bounds.height, width: view.bounds.width, height: tabBarHeight))
             customTabBar.autoresizingMask = [.flexibleTopMargin, .flexibleWidth] // Ensure the tab bar resizes properly
@@ -126,7 +129,7 @@ class ChatsViewController: UIViewController {
 
                 customTabBar.frame.origin.y -= tabBarHeight
             }, completion: { [weak self] _ in
-                self?.updateTableViewBottomConstraint()
+                self?.updateTableViewBottomConstraints()
             })
         }
     }
@@ -136,16 +139,16 @@ class ChatsViewController: UIViewController {
             return
         }
 
-        UIView.animate(withDuration: 0.4, delay: 0, options: .curveEaseInOut, animations: {
+        UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut, animations: {
             customTabBar.frame.origin.y = self.view.bounds.height
         }, completion: { [weak self] _ in
             customTabBar.removeFromSuperview()
             self?.customTabBar = nil
-            self?.updateTableViewBottomConstraint()
+            self?.updateTableViewBottomConstraints()
         })
     }
 
-    private func updateTableViewBottomConstraint() {
+    private func updateTableViewBottomConstraints() {
         tableViewBottomConstraint?.isActive = false
 
         if let customTabBar = customTabBar {
@@ -169,13 +172,16 @@ class ChatsViewController: UIViewController {
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             tableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
-            tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
-            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor)
         ])
+        updateTableViewBottomConstraints()
     }
 }
 
 extension ChatsViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        .none
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numberOfChats
     }
@@ -184,7 +190,7 @@ extension ChatsViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath) as? ChatCell else {
             return UITableViewCell()
         }
-//        cell.accessoryType = self.selectedCells.contains(indexPath.row) ? .checkmark : .none
+        //        cell.accessoryType = self.selectedCells.contains(indexPath.row) ? .checkmark : .none
         cell.configure(for: viewModel.chats[indexPath.row])
         return cell
     }
@@ -192,22 +198,15 @@ extension ChatsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         90
     }
-
-//    func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) {
-//        if self.selectedCells.contains(indexPath.row) {
-//            let index = self.selectedCells.firstIndex(of: indexPath.row)
-//            self.selectedCells.remove(at: index!)
-//        } else {
-//            self.selectedCells.append(indexPath.row)
-//        }
-////        tableView.reloadData()
-//    }
 }
-
 extension ChatsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         viewModel.didSelectChat(indexPath.row)
+    }
+
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
     }
 
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -256,9 +255,5 @@ extension ChatsViewController: UITableViewDelegate {
 
     private func handleMoveToTrash() {
         print("Moved to trash")
-    }
-
-    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        .none
     }
 }

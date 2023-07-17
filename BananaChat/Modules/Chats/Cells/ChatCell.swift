@@ -89,10 +89,7 @@ class ChatCell: UITableViewCell {
         contentView.addSubview(profileImage)
         contentView.addSubview(titleLabel)
         contentView.addSubview(lastMessageLabel)
-        contentView.addSubview(arrowImage)
         contentView.addSubview(timestampLabel)
-
-        arrowImage.isHidden = false
 
         let padding: CGFloat = 8.0
 
@@ -107,15 +104,10 @@ class ChatCell: UITableViewCell {
 
             lastMessageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: padding),
             lastMessageLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            lastMessageLabel.trailingAnchor.constraint(equalTo: arrowImage.centerXAnchor),
+            lastMessageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
             lastMessageLabel.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -padding),
-
-            arrowImage.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -padding),
-            arrowImage.centerYAnchor.constraint(equalTo: timestampLabel.centerYAnchor),
-            arrowImage.heightAnchor.constraint(equalToConstant: 18),
-            arrowImage.widthAnchor.constraint(equalToConstant: 18),
-
-            timestampLabel.trailingAnchor.constraint(equalTo: arrowImage.leadingAnchor),
+            
+            timestampLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
             timestampLabel.topAnchor.constraint(equalTo: titleLabel.topAnchor, constant: 4),
             timestampLabel.bottomAnchor.constraint(equalTo: titleLabel.bottomAnchor),
             titleLabel.trailingAnchor.constraint(equalTo: timestampLabel.leadingAnchor, constant: -padding)
@@ -126,11 +118,6 @@ class ChatCell: UITableViewCell {
     }
 
     private func setSelectionContraints() {
-//        contentView.addSubview(checkmarkImageView)
-//            checkmarkImageView.tintColor = .systemGray
-
-//        arrowImage.alpha = 0 // Start with arrowImage hidden
-
         let padding: CGFloat = 8.0
         NSLayoutConstraint.activate([
             lastMessageLabel.trailingAnchor.constraint(equalTo: timestampLabel.trailingAnchor),
@@ -140,7 +127,6 @@ class ChatCell: UITableViewCell {
         let animator = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut) {
             // Update the layout
             self.contentView.layoutIfNeeded()
-//            self.arrowImage.alpha = 1 // Show the arrowImage
         }
 
         // Start the animation

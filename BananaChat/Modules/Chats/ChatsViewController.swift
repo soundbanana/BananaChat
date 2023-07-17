@@ -204,10 +204,17 @@ extension ChatsViewController: UITableViewDataSource {
         90
     }
 }
+
 extension ChatsViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
-        viewModel.didSelectChat(indexPath.row)
+
+        if tableView.isEditing {
+            self.tableView.selectRow(at: indexPath, animated: false, scrollPosition: UITableView.ScrollPosition.none)
+            print(indexPath.row)
+        } else {
+            viewModel.didSelectChat(indexPath.row)
+        }
     }
 
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

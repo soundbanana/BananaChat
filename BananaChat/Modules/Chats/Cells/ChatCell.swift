@@ -9,7 +9,7 @@ import UIKit
 
 class ChatCell: UITableViewCell {
     let checkmarkImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(systemName: "circle"))
+        let imageView = UIImageView(image: UIImage(systemName: "circle.fill"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.tintColor = .systemBlue
         return imageView
@@ -69,23 +69,20 @@ class ChatCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func didTransition(to state: UITableViewCell.StateMask) {
-        super.didTransition(to: state)
-        switch state.rawValue {
-        case 1: self.setSelectionContraints()
-        case 0: self.setupConstraints()
-        default:
-            self.setupConstraints()
-        }
-    }
-
     func configure(for chat: Chat) {
         titleLabel.text = chat.title
         lastMessageLabel.text = chat.lastMessage
         timestampLabel.text = ChatService().convertToTimestamp(chat.timestamp) // !TODO Change convertion place
+
+        if chat.unreadMessagesCount == 0 {
+            checkmarkImageView.isHidden = true
+        } else {
+            checkmarkImageView.isHidden = false
+        }
     }
 
     private func setupConstraints() {
+        contentView.addSubview(checkmarkImageView)
         contentView.addSubview(profileImage)
         contentView.addSubview(titleLabel)
         contentView.addSubview(lastMessageLabel)
@@ -94,9 +91,14 @@ class ChatCell: UITableViewCell {
         let padding: CGFloat = 8.0
 
         NSLayoutConstraint.activate([
+            checkmarkImageView.widthAnchor.constraint(equalToConstant: 14),
+            checkmarkImageView.heightAnchor.constraint(equalTo: checkmarkImageView.widthAnchor),
+            checkmarkImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding / 2),
+            checkmarkImageView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+
             profileImage.heightAnchor.constraint(equalToConstant: 60),
             profileImage.widthAnchor.constraint(equalToConstant: 60),
-            profileImage.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: padding),
+            profileImage.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: padding * 2 + 4),
             profileImage.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
 
             titleLabel.leftAnchor.constraint(equalTo: profileImage.rightAnchor, constant: padding),
@@ -104,13 +106,13 @@ class ChatCell: UITableViewCell {
 
             lastMessageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: padding),
             lastMessageLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            lastMessageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
+            lastMessageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding * 2),
             lastMessageLabel.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -padding),
             
-            timestampLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding),
+            timestampLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding * 2),
             timestampLabel.topAnchor.constraint(equalTo: titleLabel.topAnchor, constant: 4),
             timestampLabel.bottomAnchor.constraint(equalTo: titleLabel.bottomAnchor),
-            titleLabel.trailingAnchor.constraint(equalTo: timestampLabel.leadingAnchor, constant: -padding)
+            titleLabel.trailingAnchor.constraint(equalTo: timestampLabel.leadingAnchor, constant: -padding * 2)
         ])
 
         timestampLabel.setContentHuggingPriority(.required, for: .horizontal)

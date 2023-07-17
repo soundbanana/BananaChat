@@ -42,8 +42,8 @@ class CustomTabBarView: UIView {
 
     private func setupUI() {
         layer.addSublayer(topLineLayer)
-
         backgroundColor = .systemGray6
+        
         addSubview(readAllButton)
         addSubview(deleteButton)
 

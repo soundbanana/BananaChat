@@ -45,9 +45,23 @@ class ChatsViewController: UIViewController {
         self?.viewModel.openProfile()
     }
 
-    private lazy var doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonTapped))
+    private lazy var doneButton = UIBarButtonItem(
+        title: "Done",
+        style: .done,
+        target: self,
+        action: #selector(doneButtonTapped)
+    )
 
     private var customTabBar: CustomTabBarView?
+
+    private func toggleSelectionMode() {
+        viewModel.toggleSelectionMode()
+        tableView.setEditing(!tableView.isEditing, animated: true)
+    }
+
+    @objc private func doneButtonTapped() {
+        toggleSelectionMode()
+    }
 
     init(viewModel: ChatsViewModel) {
         self.viewModel = viewModel
@@ -64,8 +78,8 @@ class ChatsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupBindings()
         setupUI()
+        setupBindings()
     }
 
     private func setupBindings() {
@@ -104,11 +118,32 @@ class ChatsViewController: UIViewController {
         }
     }
 
+    private func setupTableView() {
+        view.addSubview(tableView)
+        tableView.delegate = self
+        tableView.dataSource = self
+
+        NSLayoutConstraint.activate([
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            tableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
+            tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor)
+        ])
+        
+        updateTableViewBottomConstraints()
+    }
+
     private var tableViewBottomConstraint: NSLayoutConstraint?
 
-    private func toggleSelectionMode() {
-        viewModel.toggleSelectionMode()
-        tableView.setEditing(!tableView.isEditing, animated: true)
+    private func updateTableViewBottomConstraints() {
+        tableViewBottomConstraint?.isActive = false
+
+        if let customTabBar = customTabBar {
+            tableViewBottomConstraint = tableView.bottomAnchor.constraint(equalTo: customTabBar.topAnchor)
+        } else {
+            tableViewBottomConstraint = tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        }
+
+        tableViewBottomConstraint?.isActive = true
     }
 
     private func showCustomTabBar() {
@@ -147,35 +182,6 @@ class ChatsViewController: UIViewController {
             self?.updateTableViewBottomConstraints()
         })
     }
-
-    private func updateTableViewBottomConstraints() {
-        tableViewBottomConstraint?.isActive = false
-
-        if let customTabBar = customTabBar {
-            tableViewBottomConstraint = tableView.bottomAnchor.constraint(equalTo: customTabBar.topAnchor)
-        } else {
-            tableViewBottomConstraint = tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        }
-
-        tableViewBottomConstraint?.isActive = true
-    }
-
-    @objc private func doneButtonTapped() {
-        toggleSelectionMode()
-    }
-
-    private func setupTableView() {
-        view.addSubview(tableView)
-        tableView.delegate = self
-        tableView.dataSource = self
-
-        NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            tableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
-            tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor)
-        ])
-        updateTableViewBottomConstraints()
-    }
 }
 
 extension ChatsViewController: UITableViewDataSource {
@@ -190,7 +196,6 @@ extension ChatsViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath) as? ChatCell else {
             return UITableViewCell()
         }
-        //        cell.accessoryType = self.selectedCells.contains(indexPath.row) ? .checkmark : .none
         cell.configure(for: viewModel.chats[indexPath.row])
         return cell
     }
@@ -225,10 +230,7 @@ extension ChatsViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let mute = UIContextualAction(
-            style: .normal,
-            title: ""
-        ) { [weak self] _, _, completionHandler in
+        let mute = UIContextualAction(style: .normal, title: "") { [weak self] _, _, completionHandler in
             self?.handleMarkAsMuted()
             completionHandler(true)
         }

@@ -125,11 +125,9 @@ class ChatCell: UITableViewCell {
         ])
 
         let animator = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut) {
-            // Update the layout
             self.contentView.layoutIfNeeded()
         }
-
-        // Start the animation
+        
         animator.startAnimation()
     }
 }

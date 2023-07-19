@@ -36,9 +36,9 @@ class ChatsViewModel {
             .sink(receiveCompletion: { completion in
             switch completion {
             case .finished:
-                print("finished")
+                print("fetch finished")
             case .failure:
-                print("failure")
+                print("fetch failure")
             }
         }, receiveValue: { [weak self] value in
             self?.chats = value
@@ -67,9 +67,13 @@ class ChatsViewModel {
         coordinator.showProfile()
     }
 
+    func markAsUnread(id: String) {
+        chatService.markChatAsUnread(id: id)
+        fetchChats()
+    }
+
     func markAsRead(id: String) {
         chatService.markChatAsRead(id: id)
-
         fetchChats()
     }
 }

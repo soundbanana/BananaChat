@@ -225,12 +225,13 @@ extension ChatsViewController: UITableViewDelegate {
         let chat = viewModel.chats[indexPath.row]
 
         if chat.unreadMessagesCount == 0 {
-            let markAsUnreadAction = UIContextualAction(
-                style: .normal,
-                title: ""
-            ) { [weak self] _, _, completionHandler in
-                self?.handleMarkAsUnread()
-                completionHandler(true)
+            let markAsUnreadAction = UIContextualAction(style: .normal, title: "") { [weak self] _, _, completionHandler in
+                self?.handleMarkAsUnread(chat.id)
+                self?.tableView.performBatchUpdates({
+                    tableView.reloadRows(at: [indexPath], with: .none)
+                }, completion: { _ in
+                    completionHandler(true)
+                })
             }
 
             markAsUnreadAction.image = UIImage(systemName: "message.badge.fill")
@@ -269,8 +270,8 @@ extension ChatsViewController: UITableViewDelegate {
         return UISwipeActionsConfiguration(actions: [moveToTrash, mute])
     }
 
-    private func handleMarkAsUnread() {
-        print("Marked as unread")
+    private func handleMarkAsUnread(_ id: String) {
+        viewModel.markAsUnread(id: id)
     }
 
     private func handleMarkAsRead(_ id: String) {

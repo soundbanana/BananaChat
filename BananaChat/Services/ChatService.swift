@@ -43,7 +43,12 @@ class ChatService {
     func markChatAsRead(id: String) {
         if let index = chats.firstIndex(where: { $0.id == id }) {
             chats[index].unreadMessagesCount = 0
-            print(chats[index])
+        }
+    }
+
+    func markChatAsUnread(id: String) {
+        if let index = chats.firstIndex(where: { $0.id == id }) {
+            chats[index].unreadMessagesCount = 1
         }
     }
 

@@ -9,7 +9,13 @@ import Foundation
 import Combine
 
 class ChatService {
-    func fetchChats() -> Future<[Chat], Error> {
+    var chats: [Chat] = []
+
+    init() {
+        createMockChats()
+    }
+
+    func createMockChats() {
         let chat1 = Chat(id: "1", title: "John Doe", lastMessage: "Hello!", timestamp: randomDate(), unreadMessagesCount: 10)
         let chat2 = Chat(id: "2", title: "Alice Johnson", lastMessage: "How are you?", timestamp: randomDate(), unreadMessagesCount: 10)
         let chat3 = Chat(id: "3", title: "Bob Smith", lastMessage: "What's up?", timestamp: randomDate(), unreadMessagesCount: 10)
@@ -22,14 +28,22 @@ class ChatService {
         let chat10 = Chat(id: "10", title: "Sophia Martinez", lastMessage: "Happy birthday! 🎉", timestamp: randomDate(), unreadMessagesCount: 10)
         let chat11 = Chat(id: "11", title: "Daniel Wilson", lastMessage: "What time is the meeting?", timestamp: randomDate(), unreadMessagesCount: 10)
 
-        let chats = [chat1, chat2, chat3, chat4, chat5, chat6, chat7, chat8, chat9, chat10, chat11].sorted {
+        chats = [chat1, chat2, chat3, chat4, chat5, chat6, chat7, chat8, chat9, chat10, chat11].sorted {
             $0.timestamp < $1.timestamp
         }
-
+    }
+    func fetchChats() -> Future<[Chat], Error> {
         return Future { promise in
             DispatchQueue.main.asyncAfter(deadline: .now() + 0) {
-                promise(.success(chats))
+                promise(.success(self.chats))
             }
+        }
+    }
+
+    func markChatAsRead(id: String) {
+        if let index = chats.firstIndex(where: { $0.id == id }) {
+            chats[index].unreadMessagesCount = 0
+            print(chats[index])
         }
     }
 

@@ -36,7 +36,7 @@ class ChatsViewController: UIViewController {
     private lazy var selectMessages = UIAction(
         title: "Select Messages",
         image: UIImage(systemName: "checkmark.circle")) { [weak self] _ in
-            self?.toggleSelectionMode()
+        self?.toggleSelectionMode()
     }
 
     private lazy var editNameAndPhoto = UIAction(
@@ -128,7 +128,7 @@ class ChatsViewController: UIViewController {
             tableView.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor),
             tableView.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor)
         ])
-        
+
         updateTableViewBottomConstraints()
     }
 
@@ -187,6 +187,7 @@ extension ChatsViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         .none
     }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.numberOfChats
     }
@@ -224,7 +225,7 @@ extension ChatsViewController: UITableViewDelegate {
         let chat = viewModel.chats[indexPath.row]
 
         if chat.unreadMessagesCount == 0 {
-            let unread = UIContextualAction(
+            let markAsUnreadAction = UIContextualAction(
                 style: .normal,
                 title: ""
             ) { [weak self] _, _, completionHandler in
@@ -232,21 +233,21 @@ extension ChatsViewController: UITableViewDelegate {
                 completionHandler(true)
             }
 
-            unread.image = UIImage(systemName: "message.badge.fill")
-            unread.backgroundColor = .systemBlue
-            return UISwipeActionsConfiguration(actions: [unread])
+            markAsUnreadAction.image = UIImage(systemName: "message.badge.fill")
+            markAsUnreadAction.backgroundColor = .systemBlue
+            return UISwipeActionsConfiguration(actions: [markAsUnreadAction])
         } else {
-            let read = UIContextualAction(
-                style: .normal,
-                title: ""
-            ) { [weak self] _, _, completionHandler in
-                self?.handleMarkAsRead()
-                completionHandler(true)
+            let markAsReadAction = UIContextualAction(style: .normal, title: "") { [weak self] _, _, completionHandler in
+                self?.handleMarkAsRead(chat.id)
+                self?.tableView.performBatchUpdates({
+                    tableView.reloadRows(at: [indexPath], with: .none)
+                }, completion: { _ in
+                    completionHandler(true)
+                })
             }
-
-            read.image = UIImage(systemName: "checkmark.message.fill")
-            read.backgroundColor = .systemBlue
-            return UISwipeActionsConfiguration(actions: [read])
+            markAsReadAction.image = UIImage(systemName: "checkmark.message.fill")
+            markAsReadAction.backgroundColor = .systemBlue
+            return UISwipeActionsConfiguration(actions: [markAsReadAction])
         }
     }
 
@@ -272,8 +273,8 @@ extension ChatsViewController: UITableViewDelegate {
         print("Marked as unread")
     }
 
-    private func handleMarkAsRead() {
-        print("Marked as read")
+    private func handleMarkAsRead(_ id: String) {
+        viewModel.markAsRead(id: id)
     }
 
     private func handleMarkAsMuted() {

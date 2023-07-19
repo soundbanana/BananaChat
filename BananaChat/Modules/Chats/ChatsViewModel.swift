@@ -66,4 +66,10 @@ class ChatsViewModel {
     func openProfile() {
         coordinator.showProfile()
     }
+
+    func markAsRead(id: String) {
+        chatService.markChatAsRead(id: id)
+
+        fetchChats()
+    }
 }

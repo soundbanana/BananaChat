@@ -9,7 +9,7 @@ import Foundation
 import Combine
 
 class ChatService {
-    var chats: [Chat] = []
+    @Published var chats: [Chat] = []
 
     init() {
         createMockChats()
@@ -38,13 +38,11 @@ class ChatService {
             $0.timestamp < $1.timestamp
         }
     }
-    func fetchChats() -> Future<[Chat], Error> {
-        return Future { promise in
+    func fetchChats() {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0) {
-                promise(.success(self.chats))
+                self.chats.sort { $0.timestamp < $1.timestamp }
             }
         }
-    }
 
     func markChatAsRead(id: String) {
         if let index = chats.firstIndex(where: { $0.id == id }) {

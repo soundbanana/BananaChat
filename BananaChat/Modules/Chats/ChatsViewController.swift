@@ -80,6 +80,8 @@ class ChatsViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
         setupBindings()
+
+        viewModel.configureDataSource(for: tableView)
     }
 
     private func setupBindings() {
@@ -121,7 +123,7 @@ class ChatsViewController: UIViewController {
     private func setupTableView() {
         view.addSubview(tableView)
         tableView.delegate = self
-        tableView.dataSource = self
+        tableView.dataSource = viewModel.dataSource
 
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -196,7 +198,8 @@ extension ChatsViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "ChatCell", for: indexPath) as? ChatCell else {
             return UITableViewCell()
         }
-        cell.configure(for: viewModel.chats[indexPath.row])
+        let chat = viewModel.chat(at: indexPath.row)
+        cell.configure(for: chat)
         return cell
     }
 
@@ -222,16 +225,12 @@ extension ChatsViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let chat = viewModel.chats[indexPath.row]
+        let chat = viewModel.chat(at: indexPath.row)
 
         if chat.unreadMessagesCount == 0 {
             let markAsUnreadAction = UIContextualAction(style: .normal, title: "") { [weak self] _, _, completionHandler in
                 self?.handleMarkAsUnread(chat.id)
-                self?.tableView.performBatchUpdates({
-                    tableView.reloadRows(at: [indexPath], with: .none)
-                }, completion: { _ in
-                    completionHandler(true)
-                })
+                completionHandler(true)
             }
 
             markAsUnreadAction.image = UIImage(systemName: "message.badge.fill")
@@ -240,11 +239,7 @@ extension ChatsViewController: UITableViewDelegate {
         } else {
             let markAsReadAction = UIContextualAction(style: .normal, title: "") { [weak self] _, _, completionHandler in
                 self?.handleMarkAsRead(chat.id)
-                self?.tableView.performBatchUpdates({
-                    tableView.reloadRows(at: [indexPath], with: .none)
-                }, completion: { _ in
-                    completionHandler(true)
-                })
+                completionHandler(true)
             }
             markAsReadAction.image = UIImage(systemName: "checkmark.message.fill")
             markAsReadAction.backgroundColor = .systemBlue

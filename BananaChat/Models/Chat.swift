@@ -7,7 +7,11 @@
 
 import Foundation
 
-struct Chat {
+enum Section {
+    case chat
+}
+
+struct Chat: Hashable {
     let id: String
     let title: String
     var lastMessage: String

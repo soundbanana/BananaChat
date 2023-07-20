@@ -75,5 +75,6 @@ class ChatsViewModel {
     func markAsRead(id: String) {
         chatService.markChatAsRead(id: id)
         fetchChats()
+//        print(chats)
     }
 }

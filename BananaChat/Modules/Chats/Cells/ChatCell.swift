@@ -42,6 +42,8 @@ class ChatCell: UITableViewCell {
         return label
     }()
 
+    var muteIconImage: UIImageView?
+
     let timestampLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -79,6 +81,12 @@ class ChatCell: UITableViewCell {
         } else {
             checkmarkImageView.isHidden = false
         }
+
+        if chat.isMuted {
+            showMuteIconImage()
+        } else {
+            hideMuteIconImage()
+        }
     }
 
     private func setupConstraints() {
@@ -106,9 +114,8 @@ class ChatCell: UITableViewCell {
 
             lastMessageLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: padding),
             lastMessageLabel.leadingAnchor.constraint(equalTo: titleLabel.leadingAnchor),
-            lastMessageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding * 2),
             lastMessageLabel.bottomAnchor.constraint(lessThanOrEqualTo: contentView.bottomAnchor, constant: -padding),
-            
+
             timestampLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding * 2),
             timestampLabel.topAnchor.constraint(equalTo: titleLabel.topAnchor, constant: 4),
             timestampLabel.bottomAnchor.constraint(equalTo: titleLabel.bottomAnchor),
@@ -117,6 +124,48 @@ class ChatCell: UITableViewCell {
 
         timestampLabel.setContentHuggingPriority(.required, for: .horizontal)
         timestampLabel.setContentCompressionResistancePriority(.required, for: .horizontal)
+    }
+
+    private var lastMessageTrailingConstraint: NSLayoutConstraint?
+
+    private func updateLastMessageTrailingConstraint() {
+        lastMessageTrailingConstraint?.isActive = false
+
+        if let muteIconImage = muteIconImage {
+            lastMessageTrailingConstraint = lastMessageLabel.trailingAnchor.constraint(equalTo: muteIconImage.leadingAnchor)
+        } else {
+            lastMessageTrailingConstraint = lastMessageLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
+        }
+
+        lastMessageTrailingConstraint?.isActive = true
+    }
+
+    private func showMuteIconImage() {
+        if muteIconImage == nil {
+            let muteIconImage = UIImageView(image: UIImage(systemName: "bell.slash.fill"))
+            muteIconImage.translatesAutoresizingMaskIntoConstraints = false
+            muteIconImage.tintColor = .systemGray3
+            self.muteIconImage = muteIconImage
+
+            contentView.addSubview(self.muteIconImage!)
+
+            NSLayoutConstraint.activate([
+                muteIconImage.topAnchor.constraint(equalTo: timestampLabel.bottomAnchor, constant: 8),
+                muteIconImage.trailingAnchor.constraint(equalTo: timestampLabel.trailingAnchor),
+                muteIconImage.heightAnchor.constraint(equalToConstant: 16),
+                muteIconImage.widthAnchor.constraint(equalToConstant: 16)
+            ])
+            updateLastMessageTrailingConstraint()
+        }
+    }
+
+    private func hideMuteIconImage() {
+        guard muteIconImage != nil else {
+            return
+        }
+
+        self.muteIconImage = nil
+        updateLastMessageTrailingConstraint()
     }
 
     private func setSelectionContraints() {
@@ -129,7 +178,7 @@ class ChatCell: UITableViewCell {
         let animator = UIViewPropertyAnimator(duration: 0.3, curve: .easeInOut) {
             self.contentView.layoutIfNeeded()
         }
-        
+
         animator.startAnimation()
     }
 }

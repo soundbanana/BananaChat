@@ -49,23 +49,6 @@ class ChatsViewModel {
         dataSource.apply(snapshot, animatingDifferences: true)
     }
 
-//    func fetchChats() {
-//        chatService.fetchChats()
-//            .receive(on: DispatchQueue.main)
-//            .sink(receiveCompletion: { completion in
-//            switch completion {
-//            case .finished:
-//                print("fetch finished")
-//            case .failure:
-//                print("fetch failure")
-//            }
-//        }, receiveValue: { [weak self] value in
-//            self?.dataSource = value
-//            self?.chatsSubject.send(value) // Notify the ChatsViewController with the fetched chats
-//        })
-//        .store(in: &cancellables)
-//    }
-
     private func fetchChats() {
         chatService.$chats
             .receive(on: DispatchQueue.main)
@@ -74,7 +57,6 @@ class ChatsViewModel {
             }
             .store(in: &cancellables)
 
-        // Fetch the chats
         chatService.fetchChats()
     }
 
@@ -106,6 +88,15 @@ class ChatsViewModel {
     func markAsRead(id: String) {
         chatService.markChatAsRead(id: id)
         fetchChats()
-//        print(chats)
+    }
+
+    func markAsMuted(id: String) {
+        chatService.markChatAsMuted(id: id)
+        fetchChats()
+    }
+
+    func markAsUnmuted(id: String) {
+        chatService.markChatAsUnmuted(id: id)
+        fetchChats()
     }
 }

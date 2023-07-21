@@ -39,10 +39,10 @@ class ChatService {
         }
     }
     func fetchChats() {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0) {
-                self.chats.sort { $0.timestamp < $1.timestamp }
-            }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0) {
+            self.chats.sort { $0.timestamp < $1.timestamp }
         }
+    }
 
     func markChatAsRead(id: String) {
         if let index = chats.firstIndex(where: { $0.id == id }) {
@@ -53,6 +53,18 @@ class ChatService {
     func markChatAsUnread(id: String) {
         if let index = chats.firstIndex(where: { $0.id == id }) {
             chats[index].unreadMessagesCount = 1
+        }
+    }
+
+    func markChatAsMuted(id: String) {
+        if let index = chats.firstIndex(where: { $0.id == id }) {
+            chats[index].isMuted = true
+        }
+    }
+
+    func markChatAsUnmuted(id: String) {
+        if let index = chats.firstIndex(where: { $0.id == id }) {
+            chats[index].isMuted = false
         }
     }
 

@@ -248,12 +248,7 @@ extension ChatsViewController: UITableViewDelegate {
     }
 
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let mute = UIContextualAction(style: .normal, title: "") { [weak self] _, _, completionHandler in
-            self?.handleMarkAsMuted()
-            completionHandler(true)
-        }
-        mute.image = UIImage(systemName: "bell.slash.fill")
-        mute.backgroundColor = .systemIndigo
+        let chat = viewModel.chat(at: indexPath.row)
 
         let moveToTrash = UIContextualAction(style: .normal, title: "") { [weak self] _, _, completionHandler in
             self?.handleMoveToTrash()
@@ -262,7 +257,27 @@ extension ChatsViewController: UITableViewDelegate {
         moveToTrash.image = UIImage(systemName: "trash.fill")
         moveToTrash.backgroundColor = .systemRed
 
-        return UISwipeActionsConfiguration(actions: [moveToTrash, mute])
+        if chat.isMuted {
+            let markAsUnmuted = UIContextualAction(style: .normal, title: "") { [weak self] _, _, completionHandler in
+                self?.handleMarkAsUnmuted(chat.id)
+                completionHandler(true)
+            }
+
+            markAsUnmuted.image = UIImage(systemName: "bell.fill")
+            markAsUnmuted.backgroundColor = .systemIndigo
+
+            return UISwipeActionsConfiguration(actions: [moveToTrash, markAsUnmuted])
+        } else {
+            let markAsMuted = UIContextualAction(style: .normal, title: "") { [weak self] _, _, completionHandler in
+                self?.handleMarkAsMuted(chat.id)
+                completionHandler(true)
+            }
+
+            markAsMuted.image = UIImage(systemName: "bell.slash.fill")
+            markAsMuted.backgroundColor = .systemIndigo
+
+            return UISwipeActionsConfiguration(actions: [moveToTrash, markAsMuted])
+        }
     }
 
     private func handleMarkAsUnread(_ id: String) {
@@ -273,8 +288,12 @@ extension ChatsViewController: UITableViewDelegate {
         viewModel.markAsRead(id: id)
     }
 
-    private func handleMarkAsMuted() {
-        print("Marked as muted")
+    private func handleMarkAsMuted(_ id: String) {
+        viewModel.markAsMuted(id: id)
+    }
+
+    private func handleMarkAsUnmuted(_ id: String) {
+        viewModel.markAsUnmuted(id: id)
     }
 
     private func handleMoveToTrash() {

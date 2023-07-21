@@ -251,8 +251,8 @@ extension ChatsViewController: UITableViewDelegate {
         let chat = viewModel.chat(at: indexPath.row)
 
         let moveToTrash = UIContextualAction(style: .normal, title: "") { [weak self] _, _, completionHandler in
-            self?.handleMoveToTrash(chat.id)
-            completionHandler(true)
+            self?.handleMoveToTrash(chat.id, title: chat.title)
+            completionHandler(false)
         }
         moveToTrash.image = UIImage(systemName: "trash.fill")
         moveToTrash.backgroundColor = .systemRed
@@ -275,7 +275,7 @@ extension ChatsViewController: UITableViewDelegate {
 
             markAsMuted.image = UIImage(systemName: "bell.slash.fill")
             markAsMuted.backgroundColor = .systemIndigo
-
+            
             return UISwipeActionsConfiguration(actions: [moveToTrash, markAsMuted])
         }
     }
@@ -296,7 +296,18 @@ extension ChatsViewController: UITableViewDelegate {
         viewModel.markAsUnmuted(id: id)
     }
 
-    private func handleMoveToTrash(_ id: String) {
-        viewModel.moveToTrash(id: id)
+    private func handleMoveToTrash(_ id: String, title: String) {
+        let title = "Permanently delete the chat with \(title)?"
+        let alertController = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
+
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { [weak self] _ in
+            self?.viewModel.moveToTrash(id: id)
+        }
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+
+        alertController.addAction(deleteAction)
+        alertController.addAction(cancelAction)
+
+        present(alertController, animated: true, completion: nil)
     }
 }

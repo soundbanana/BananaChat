@@ -15,6 +15,8 @@ class ChatService {
         createMockChats()
     }
 
+    // MARK: Data generation
+
     private func createMockChats() {
         var chat1 = Chat(id: "1", title: "John Doe", lastMessage: "Hello!", timestamp: randomDate(), unreadMessagesCount: 10)
         var chat2 = Chat(id: "2", title: "Alice Johnson", lastMessage: "How are you?", timestamp: randomDate(), unreadMessagesCount: 10)
@@ -38,6 +40,15 @@ class ChatService {
             $0.timestamp < $1.timestamp
         }
     }
+
+    func randomDate() -> Date {
+        let randomTimeInterval = TimeInterval.random(in: 0...1000000)
+        let randomDate = Date().addingTimeInterval(randomTimeInterval)
+        return randomDate
+    }
+
+    // MARK: Mock API calls to DB
+
     func fetchChats() {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0) {
             self.chats.sort { $0.timestamp < $1.timestamp }
@@ -68,11 +79,13 @@ class ChatService {
         }
     }
 
-    func randomDate() -> Date {
-        let randomTimeInterval = TimeInterval.random(in: 0...1000000)
-        let randomDate = Date().addingTimeInterval(randomTimeInterval)
-        return randomDate
+    func deleteChat(id: String) {
+        if let index = chats.firstIndex(where: { $0.id == id }) {
+            chats.remove(at: index)
+        }
     }
+
+    // MARK: Data convertion
 
     func convertToTimestamp(_ date: Date) -> String {
         let calendar = Calendar.current

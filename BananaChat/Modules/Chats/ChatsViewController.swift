@@ -251,7 +251,7 @@ extension ChatsViewController: UITableViewDelegate {
         let chat = viewModel.chat(at: indexPath.row)
 
         let moveToTrash = UIContextualAction(style: .normal, title: "") { [weak self] _, _, completionHandler in
-            self?.handleMoveToTrash()
+            self?.handleMoveToTrash(chat.id)
             completionHandler(true)
         }
         moveToTrash.image = UIImage(systemName: "trash.fill")
@@ -296,7 +296,7 @@ extension ChatsViewController: UITableViewDelegate {
         viewModel.markAsUnmuted(id: id)
     }
 
-    private func handleMoveToTrash() {
-        print("Moved to trash")
+    private func handleMoveToTrash(_ id: String) {
+        viewModel.moveToTrash(id: id)
     }
 }

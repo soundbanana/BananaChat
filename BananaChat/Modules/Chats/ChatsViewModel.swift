@@ -99,4 +99,9 @@ class ChatsViewModel {
         chatService.markChatAsUnmuted(id: id)
         fetchChats()
     }
+
+    func moveToTrash(id: String) {
+        chatService.deleteChat(id: id)
+        fetchChats()
+    }
 }

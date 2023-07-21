@@ -34,6 +34,7 @@
 		FFB02B232A5C24D00019C488 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB02B222A5C24D00019C488 /* Button.swift */; };
 		FFB02B252A5C24E40019C488 /* TextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB02B242A5C24E40019C488 /* TextField.swift */; };
 		FFB02B2A2A5D4FCC0019C488 /* MockUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFB02B292A5D4FCC0019C488 /* MockUser.swift */; };
+		FFBDE98A2A5DF042009CA710 /* CustomTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBDE9892A5DF042009CA710 /* CustomTabBarView.swift */; };
 		FFD236612A5BDEE600783A10 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD236602A5BDEE600783A10 /* LoginViewController.swift */; };
 		FFD236642A5BDEF900783A10 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD236632A5BDEF900783A10 /* LoginViewModel.swift */; };
 		FFD236662A5BDF0300783A10 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFD236652A5BDF0300783A10 /* AuthService.swift */; };
@@ -71,6 +72,7 @@
 		FFB02B222A5C24D00019C488 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		FFB02B242A5C24E40019C488 /* TextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextField.swift; sourceTree = "<group>"; };
 		FFB02B292A5D4FCC0019C488 /* MockUser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUser.swift; sourceTree = "<group>"; };
+		FFBDE9892A5DF042009CA710 /* CustomTabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarView.swift; sourceTree = "<group>"; };
 		FFD236602A5BDEE600783A10 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		FFD236632A5BDEF900783A10 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		FFD236652A5BDF0300783A10 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 			children = (
 				FFB02B222A5C24D00019C488 /* Button.swift */,
 				FFB02B242A5C24E40019C488 /* TextField.swift */,
+				FFBDE9892A5DF042009CA710 /* CustomTabBarView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -387,6 +390,7 @@
 				FF3CF6342A4D861F005489F0 /* MessageService.swift in Sources */,
 				FF3CF63E2A52C324005489F0 /* RecievedMessageBubbleCell.swift in Sources */,
 				FF78CD312A52E47A006BDE26 /* ChatsViewController.swift in Sources */,
+				FFBDE98A2A5DF042009CA710 /* CustomTabBarView.swift in Sources */,
 				FFB02B2A2A5D4FCC0019C488 /* MockUser.swift in Sources */,
 				FFB02B252A5C24E40019C488 /* TextField.swift in Sources */,
 				FF3CF6322A4D85FD005489F0 /* Message.swift in Sources */,

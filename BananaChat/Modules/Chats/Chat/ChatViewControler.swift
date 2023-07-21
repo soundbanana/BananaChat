@@ -155,7 +155,7 @@ extension ChatViewController: UITableViewDataSource, UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let message = viewModel.messages[indexPath.row]
-        if message.content == "123" {
+        if indexPath.row % 2 == 0 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "RecievedMessageBubbleCell", for: indexPath) as? RecievedMessageBubbleCell else {
                 return UITableViewCell()
             }

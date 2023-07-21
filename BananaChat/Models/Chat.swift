@@ -7,18 +7,23 @@
 
 import Foundation
 
-struct Chat {
+enum Section {
+    case chat
+}
+
+struct Chat: Hashable {
     let id: String
     let title: String
     var lastMessage: String
-    var unreadCount: Int = 0
+    var unreadMessagesCount: Int
     var isMuted = false
     var timestamp: Date
 
-    init(id: String, title: String, lastMessage: String, timestamp: Date) {
+    init(id: String, title: String, lastMessage: String, timestamp: Date, unreadMessagesCount: Int) {
         self.id = id
         self.title = title
         self.lastMessage = lastMessage
         self.timestamp = timestamp
+        self.unreadMessagesCount = unreadMessagesCount
     }
 }
